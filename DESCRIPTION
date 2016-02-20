@@ -1,0 +1,22 @@
+Encoding: latin1
+Package: MatrixCorrelation
+Type: Package
+Title: Similiarity of Matrices Coefficients
+Version: 0.7.1
+Date: 2016-01-07
+Author: Kristian Hovde Liland
+Maintainer: Kristian Hovde Liland <kristian.liland@nofima.no>
+Description: Computation and visualization of matrix correlation coefficients.
+    The main method is the Similarity of Matrices Index, while various related
+    measures like r1, r2, r3, r4, Yanai's GCD, RV, RV2 and adjusted RV are included
+    for comparison.
+Imports:
+    pracma,
+    rARPACK,
+    plotrix,
+    Rcpp,
+    RcppArmadillo
+License: GPL-2
+LazyData: TRUE
+RoxygenNote: 5.0.1
+LinkingTo: Rcpp,RcppArmadillo
