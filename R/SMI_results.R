@@ -40,6 +40,8 @@
 #' summary(smi)
 #' is.signif(smi)
 #'
+#' @importFrom grDevices dev.flush dev.hold rgb
+#' @importFrom graphics axis box grid lines par plot points polygon text
 #' @export
 plot.SMI <- function(x, y = NULL, x1lab = attr(x, "mat.names")[[1]], x2lab = attr(x, "mat.names")[[2]],
                      main = "SMI", signif = 0.05,
@@ -70,7 +72,7 @@ plot.SMI <- function(x, y = NULL, x1lab = attr(x, "mat.names")[[1]], x2lab = att
 
   # Plot significance symbols
   if(!Procrustes && !is.null(signif)){
-    Pval <- significant(smi, B)
+    Pval <- significant(x, B)
     n <- attr(x, "n")
     for(p in 1:pq[1]){
       for(q in 1:pq[2]){

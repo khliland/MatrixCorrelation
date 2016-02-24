@@ -10,7 +10,7 @@
 \method{plot}{SMI}(x, y = NULL, x1lab = attr(x, "mat.names")[[1]],
   x2lab = attr(x, "mat.names")[[2]], main = "SMI", signif = 0.05,
   xlim = c(-(pq[1])/2, (pq[2] + 1)/2), ylim = c(0.75, (sum(pq) + 2.5)/2),
-  B = 10000, ...)
+  B = 10000, cex = 1, cex.sym = 1, ...)
 
 \method{print}{SMI}(x, ...)
 
@@ -36,6 +36,10 @@ is.signif(x, signif = 0.05, B = 10000)
 \item{ylim}{optional plotting limits.}
 
 \item{B}{number of permutations (for significant, default=10000).}
+
+\item{cex}{optional text scaling (default = 1)}
+
+\item{cex.sym}{optional scaling for significance symbols (default = 1)}
 
 \item{...}{additional arguments for \code{plot}.}
 

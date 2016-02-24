@@ -1,7 +1,6 @@
-#' @aliases MatrixCorrelation
 #' @title Similarity of Matrices Index (SMI)
 #'
-#' @description Matrix similarity estimated through projections of stable subspaces.
+#' @description A similarity index for comparing coupled matrix dataces.
 #'
 #' @param X1 first \code{matrix} to be compared (\code{data.frames} are also accepted).
 #' @param X2 second \code{matrix} to be compared (\code{data.frames} are also accepted).
