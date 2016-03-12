@@ -1,5 +1,7 @@
 // [[Rcpp::depends(RcppArmadillo)]]
 #include <RcppArmadillo.h>
+#include <RProgress.h>
+#include <unistd.h>
 using namespace Rcpp;
 
 // [[Rcpp::export]]
@@ -26,6 +28,8 @@ NumericVector significantRcpp(SEXP smi1, SEXP T1, SEXP U1, SEXP B1) {
     }
   }
 
+  RProgress::RProgress pb("[:bar] :percent :eta ");
+  pb.tick(0);
   for(arma::uword b=0; b<B; ++b){
     Tb = shuffle(T);
     TU.zeros();
@@ -39,6 +43,7 @@ NumericVector significantRcpp(SEXP smi1, SEXP T1, SEXP U1, SEXP B1) {
         }
       }
     }
+    pb.tick();
   }
   return(wrap(P));
 }

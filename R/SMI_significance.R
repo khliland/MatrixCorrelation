@@ -26,10 +26,40 @@
 #' (smi <- SMI(X1,X2,5,5))
 #' significant(smi)
 #'
+#' @importFrom progress progress_bar
 #' @export
 significant <- function(smi, B = 10000){
   T <- attr(smi,'scores')$Scores1
   U <- attr(smi,'scores')$Scores2
-  1-significantRcpp(smi, T, U, B)/B
+  
+  # Orthogonal Projection
+  if(attr(smi, "orthogonal")){ 
+    return(1-significantRcpp(smi, T, U, B)/B)
+  
+  # Procrustes Rotation
+  } else { 
+    N     <- dim(T)[1]
+    ncomp <- dim(smi)
+    smi_B <- array(0, dim = c(ncomp,B))
+    pb <- progress_bar$new(total = B, format = "  [:bar] :percent (:eta)")
+    for(b in 1:B){
+      ind = sample(N)
+      TU <- crossprod(T[ind,],U)
+      for(p in 1:ncomp[1]){
+        for(q in 1:ncomp[2]){
+          s <- svd(TU[1:p,1:q, drop=FALSE], nu = 0, nv = 0)$d
+          smi_B[p,q,b] <- mean(s)^2
+        }
+      }
+      pb$tick()
+    }
+    Pval <- matrix(0, ncomp[1], ncomp[2])
+    for(p in 1:ncomp[1]){
+      for(q in 1:ncomp[2]){
+        Pval[p,q] <- 1-sum(smi_B[p,q,]<(1-smi[p,q]))/B
+      }
+    }
+    return(Pval)
+  }
 }
 

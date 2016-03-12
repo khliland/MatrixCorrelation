@@ -48,9 +48,6 @@ plot.SMI <- function(x, y = NULL, x1lab = attr(x, "mat.names")[[1]], x2lab = att
                      xlim = c(-(pq[1])/2,(pq[2]+1)/2), ylim = c(0.75,(sum(pq)+2.5)/2), B = 10000, cex = 1, cex.sym = 1, ...){
   pq <- dim(x)
 
-  # Check inputs/defaults
-  Procrustes <- ifelse(attr(x,"orthogonal"), FALSE, TRUE)
-
   dev.hold()
   on.exit(dev.flush())
 
@@ -71,7 +68,7 @@ plot.SMI <- function(x, y = NULL, x1lab = attr(x, "mat.names")[[1]], x2lab = att
   }
 
   # Plot significance symbols
-  if(!Procrustes && !is.null(signif)){
+  if(!is.null(signif)){
     Pval <- significant(x, B)
     n <- attr(x, "n")
     for(p in 1:pq[1]){

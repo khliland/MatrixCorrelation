@@ -69,11 +69,29 @@ SMI <- function(X1, X2, ncomp1 = Rank(X1)-1, ncomp2 = Rank(X2)-1,
 
   # Compute SMI and tests
   if(projection == "Orthogonal"){
-    smi <- apply(
-      apply(
-        crossprod(Scores1[, 1:ncomp1, drop=FALSE], Scores2[, 1:ncomp2, drop=FALSE])^2,
-        1,cumsum),
-      1,cumsum) / matrix(pmin(rep(1:ncomp1,ncomp2), rep(1:ncomp2,each=ncomp1)), ncomp1,ncomp2)
+    if(ncomp1 > 1 && ncomp2 > 1){
+      smi <- apply(
+        apply(
+          crossprod(Scores1[, 1:ncomp1, drop=FALSE], Scores2[, 1:ncomp2, drop=FALSE])^2,
+          1,cumsum),
+        1,cumsum) / matrix(pmin(rep(1:ncomp1,ncomp2), rep(1:ncomp2,each=ncomp1)), ncomp1,ncomp2)
+    }
+    if(ncomp1 == 1 && ncomp2 == 1){
+      smi <- crossprod(Scores1[, 1:ncomp1, drop=FALSE], Scores2[, 1:ncomp2, drop=FALSE])^2
+    } else {
+      if(ncomp1 == 1){
+        smi <- t(
+          apply(
+            crossprod(Scores1[, 1:ncomp1, drop=FALSE], Scores2[, 1:ncomp2, drop=FALSE])^2,
+            1,cumsum)) / matrix(pmin(rep(1:ncomp1,ncomp2), rep(1:ncomp2,each=ncomp1)), ncomp1,ncomp2)
+      } else {
+        if(ncomp2 == 1){
+          smi <- apply(
+            crossprod(Scores1[, 1:ncomp1, drop=FALSE], Scores2[, 1:ncomp2, drop=FALSE])^2,
+          1,cumsum) / matrix(pmin(rep(1:ncomp1,ncomp2), rep(1:ncomp2,each=ncomp1)), ncomp1,ncomp2)
+        }
+      }
+    }
     attr(smi, "orthogonal") <- TRUE
     smi[smi > 1] <- 1; smi[smi < 0] <- 0
   } else { # Procrustes Rotation
@@ -84,6 +102,7 @@ SMI <- function(X1, X2, ncomp1 = Rank(X1)-1, ncomp2 = Rank(X2)-1,
         smi[p,q] <- mean(s)^2
       }
     }
+    attr(smi, "orthogonal") <- FALSE
   }
 
   attr(smi, "n")         <- nobj

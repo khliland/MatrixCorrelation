@@ -23,4 +23,7 @@ Imports:
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1
-LinkingTo: Rcpp,RcppArmadillo
+LinkingTo: 
+    progress,
+    Rcpp,
+    RcppArmadillo
