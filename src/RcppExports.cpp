@@ -20,3 +20,21 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// significantRepRcpp
+NumericVector significantRepRcpp(SEXP smi1, SEXP T1, SEXP U1, SEXP B1, SEXP perm, SEXP nrep, SEXP nseg, SEXP inperm);
+RcppExport SEXP MatrixCorrelation_significantRepRcpp(SEXP smi1SEXP, SEXP T1SEXP, SEXP U1SEXP, SEXP B1SEXP, SEXP permSEXP, SEXP nrepSEXP, SEXP nsegSEXP, SEXP inpermSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< SEXP >::type smi1(smi1SEXP);
+    Rcpp::traits::input_parameter< SEXP >::type T1(T1SEXP);
+    Rcpp::traits::input_parameter< SEXP >::type U1(U1SEXP);
+    Rcpp::traits::input_parameter< SEXP >::type B1(B1SEXP);
+    Rcpp::traits::input_parameter< SEXP >::type perm(permSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type nrep(nrepSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type nseg(nsegSEXP);
+    Rcpp::traits::input_parameter< SEXP >::type inperm(inpermSEXP);
+    __result = Rcpp::wrap(significantRepRcpp(smi1, T1, U1, B1, perm, nrep, nseg, inperm));
+    return __result;
+END_RCPP
+}

@@ -1,10 +1,10 @@
 Encoding: latin1
 Package: MatrixCorrelation
 Type: Package
-Title: Similiarity of Matrices Coefficients
-Version: 0.7.2
-Date: 2016-02-23
-Authors@R: c(person("Kristian Hovde", "Liland", role = c("aut","cre"), email="kristian.liland@nmbu.no"),
+Title: Matrix Correlation Coefficients
+Version: 0.8.0
+Date: 2016-03-16
+Authors@R: c(person("Kristian Hovde", "Liland", role = c("aut","cre"), email="kristian.liland@nofima.no"),
  person("Tormod", "Næs", role=c("ctb")), person("Ulf Geir", "Indahl", role="ctb"))
 Author: Kristian Hovde Liland [aut, cre],
   Tormod Næs [ctb],
@@ -14,12 +14,13 @@ Description: Computation and visualization of matrix correlation coefficients.
     The main method is the Similarity of Matrices Index, while various related
     measures like r1, r2, r3, r4, Yanai's GCD, RV, RV2 and adjusted RV are included
     for comparison.
+Depends: R (>= 3.0.1)
 Imports:
-    pracma,
-    rARPACK,
-    plotrix,
     Rcpp,
-    RcppArmadillo
+    plotrix,
+    pracma,
+    progress,
+    rARPACK
 License: GPL-2
 LazyData: TRUE
 RoxygenNote: 5.0.1

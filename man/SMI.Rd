@@ -27,20 +27,29 @@ A matrix containing all combinations of components. Its class is "SMI" associate
 with print, plot, summary methods.
 }
 \description{
-A similarity index for comparing coupled matrix dataces.
+A similarity index for comparing coupled data matrices.
 }
 \details{
-For each combination of components SMI is computed based on the selected
- orhtogonal subspace and projection method. If the projection is orthogonal, complemental
- SMI values are computed for use in plotting and testing.
+A two-step process starts with extraction of stable subspaces using 
+Principal Component Analysis or some other method yielding two orthonormal bases. These bases
+are compared using Orthogonal Projection (OP / ordinary least squares) or Procrustes
+Rotation (PR). The result is a similarity measure that can be adjusted to various
+data sets and contexts and which includes explorative plotting and permutation based testing
+of matrix subspace equality.
 }
 \examples{
-X1  <- matrix(rnorm(100*300),100,300)
+# Simulation
+X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 usv <- svd(X1)
 X2  <- usv$u[,-3] \%*\% diag(usv$d[-3]) \%*\% t(usv$v[,-3])
 
 (smi <- SMI(X1,X2,5,5))
-plot(smi)
+plot(smi, B = 1000 ) # default B = 10000
+
+# Sensory analysis
+data(candy)
+plot( SMI(candy$Panel1, candy$Panel2, 3,3, projection = "Procrustes"),
+    frame = c(2,2), B = 1000 ) # default B = 10000
 
 }
 \author{
@@ -50,6 +59,7 @@ Kristian Hovde Liland
 Similarity of Matrices Index - Ulf Geir Indahl, Tormod Næs, Kristian Hovde Liland
 }
 \seealso{
-\code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{allCorrelations}} (matrix correlation comparison).
+\code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), 
+\code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}.
 }
 

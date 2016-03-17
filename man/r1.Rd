@@ -39,7 +39,7 @@ Details can be found in Ramsey's paper:
  \item{r1:}{ inner product correlation}
  \item{r2:}{ orientation-independent inner product correlation}
  \item{r3:}{ spectra-independent inner product correlations (including orientation)}
- \item{r4:}{ Spectra-Independent Inner Product Correlations}
+ \item{r4:}{ Spectra-Independent inner product Correlations}
  \item{GCD:}{ Yanai's GCD Measure}
 }
 }

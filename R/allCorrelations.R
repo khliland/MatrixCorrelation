@@ -33,7 +33,7 @@
 #' @seealso \code{\link{SMI}}, \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD).
 #'
 #' @examples
-#' X1  <- matrix(rnorm(100*300),100,300)
+#' X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 #' usv <- svd(X1)
 #' X2  <- usv$u[,-3] %*% diag(usv$d[-3]) %*% t(usv$v[,-3])
 #'

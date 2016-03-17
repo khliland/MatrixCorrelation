@@ -5,3 +5,7 @@ significantRcpp <- function(smi1, T1, U1, B1) {
     .Call('MatrixCorrelation_significantRcpp', PACKAGE = 'MatrixCorrelation', smi1, T1, U1, B1)
 }
 
+significantRepRcpp <- function(smi1, T1, U1, B1, perm, nrep, nseg, inperm) {
+    .Call('MatrixCorrelation_significantRepRcpp', PACKAGE = 'MatrixCorrelation', smi1, T1, U1, B1, perm, nrep, nseg, inperm)
+}
+

@@ -23,7 +23,7 @@ based on leave-one-out cross-validation. The implementation ensures no over-fitt
 information bleeding.
 }
 \examples{
-X1  <- matrix(rnorm(100*300),100,300)
+X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 PCAcv(X1,10)
 
 }

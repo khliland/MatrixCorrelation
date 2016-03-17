@@ -4,12 +4,14 @@
 \alias{significant}
 \title{Significance estimation for Similarity of Matrices Index (SMI)}
 \usage{
-significant(smi, B = 10000)
+significant(smi, B = 10000, replicates = NULL)
 }
 \arguments{
 \item{smi}{\code{smi} object returned by call to \code{SMI}.}
 
 \item{B}{integer number of permutations, default = 10000.}
+
+\item{replicates}{integer vector of replicates.}
 }
 \value{
 A matrix containing P-values for all combinations of components.
@@ -21,15 +23,16 @@ of one matrix subspace is included in the subspace of another matrix.
 \details{
 For each combination of components significance is estimated by sampling from a null distribution
 of no similarity, i.e. when the rows of one matrix is permuted B times and corresponding SMI values are
-computed.
+computed. If the vector \code{replicates} is included, replicates will be kept together through
+permutations.
 }
 \examples{
-X1  <- matrix(rnorm(100*300),100,300)
+X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 usv <- svd(X1)
 X2  <- usv$u[,-3] \%*\% diag(usv$d[-3]) \%*\% t(usv$v[,-3])
 
 (smi <- SMI(X1,X2,5,5))
-significant(smi)
+significant(smi, B = 1000) # default B = 10000
 
 }
 \author{

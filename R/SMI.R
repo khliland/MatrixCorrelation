@@ -1,6 +1,6 @@
 #' @title Similarity of Matrices Index (SMI)
 #'
-#' @description A similarity index for comparing coupled matrix dataces.
+#' @description A similarity index for comparing coupled data matrices.
 #'
 #' @param X1 first \code{matrix} to be compared (\code{data.frames} are also accepted).
 #' @param X2 second \code{matrix} to be compared (\code{data.frames} are also accepted).
@@ -10,9 +10,12 @@
 #' @param Scores1 user supplied score-\code{matrix} to replace singular value decomposition of first \code{matrix}.
 #' @param Scores2 user supplied score-\code{matrix} to replace singular value decomposition of second \code{matrix}.
 #'
-#' @details For each combination of components SMI is computed based on the selected
-#'  orhtogonal subspace and projection method. If the projection is orthogonal, complemental
-#'  SMI values are computed for use in plotting and testing.
+#' @details A two-step process starts with extraction of stable subspaces using 
+#' Principal Component Analysis or some other method yielding two orthonormal bases. These bases
+#' are compared using Orthogonal Projection (OP / ordinary least squares) or Procrustes
+#' Rotation (PR). The result is a similarity measure that can be adjusted to various
+#' data sets and contexts and which includes explorative plotting and permutation based testing
+#' of matrix subspace equality.
 #'
 #' @return A matrix containing all combinations of components. Its class is "SMI" associated
 #' with print, plot, summary methods.
@@ -21,15 +24,22 @@
 #'
 #' @references Similarity of Matrices Index - Ulf Geir Indahl, Tormod Næs, Kristian Hovde Liland
 #'
-#' @seealso \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{allCorrelations}} (matrix correlation comparison).
+#' @seealso \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), 
+#' \code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}.
 #'
 #' @examples
-#' X1  <- matrix(rnorm(100*300),100,300)
+#' # Simulation
+#' X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 #' usv <- svd(X1)
 #' X2  <- usv$u[,-3] %*% diag(usv$d[-3]) %*% t(usv$v[,-3])
 #'
 #' (smi <- SMI(X1,X2,5,5))
-#' plot(smi)
+#' plot(smi, B = 1000 ) # default B = 10000
+#' 
+#' # Sensory analysis
+#' data(candy)
+#' plot( SMI(candy$Panel1, candy$Panel2, 3,3, projection = "Procrustes"),
+#'     frame = c(2,2), B = 1000 ) # default B = 10000
 #'
 #' @importFrom pracma Rank subspace Trace std
 #' @importFrom rARPACK svds
@@ -50,6 +60,7 @@ SMI <- function(X1, X2, ncomp1 = Rank(X1)-1, ncomp2 = Rank(X2)-1,
   projection <- match.arg(projection, c("Orthogonal", "Procrustes"))
 
   # Compute scores by PCA if not supplied
+  has.scores <- TRUE
   if(is.null(Scores1) && is.null(Scores2)){
     nobj <- dim(X1)[1]
     if(dim(X2)[1] != nobj) stop('The number of objects (rows) must be equal.')
@@ -61,9 +72,7 @@ SMI <- function(X1, X2, ncomp1 = Rank(X1)-1, ncomp2 = Rank(X2)-1,
       Scores1 <- svds(X1 - rep(colMeans(X1), each = nobj), k = ncomp1, nu = ncomp1, nv = 0)$u
       Scores2 <- svds(X2 - rep(colMeans(X2), each = nobj), k = ncomp2, nu = ncomp2, nv = 0)$u
     }
-    attr(smi,'PCA') <- TRUE
-  } else {
-    attr(smi,'PCA') <- FALSE
+    has.scores <- FALSE
   }
   nobj <- dim(Scores1)[1]
 
@@ -104,7 +113,11 @@ SMI <- function(X1, X2, ncomp1 = Rank(X1)-1, ncomp2 = Rank(X2)-1,
     }
     attr(smi, "orthogonal") <- FALSE
   }
-
+  if(!has.scores){
+    attr(smi,'PCA') <- TRUE
+  } else {
+    attr(smi,'PCA') <- FALSE
+  }
   attr(smi, "n")         <- nobj
   attr(smi, "mat.names") <- mat.names
   attr(smi, "scores")    <- list(Scores1=Scores1, Scores2=Scores2)

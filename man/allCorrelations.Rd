@@ -40,7 +40,7 @@ For each of the three coefficients a single scalar is computed to describe
 the similarity between the two input matrices.
 }
 \examples{
-X1  <- matrix(rnorm(100*300),100,300)
+X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 usv <- svd(X1)
 X2  <- usv$u[,-3] \%*\% diag(usv$d[-3]) \%*\% t(usv$v[,-3])
 

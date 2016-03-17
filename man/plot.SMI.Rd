@@ -9,14 +9,15 @@
 \usage{
 \method{plot}{SMI}(x, y = NULL, x1lab = attr(x, "mat.names")[[1]],
   x2lab = attr(x, "mat.names")[[2]], main = "SMI", signif = 0.05,
-  xlim = c(-(pq[1])/2, (pq[2] + 1)/2), ylim = c(0.75, (sum(pq) + 2.5)/2),
-  B = 10000, cex = 1, cex.sym = 1, ...)
+  xlim = c(-(pq[1] + 1)/2, (pq[2] + 1)/2), ylim = c(0.5, (sum(pq) + 3)/2),
+  B = 10000, cex = 1, cex.sym = 1, frame = NULL, frame.col = "red",
+  frame.lwd = 2, replicates = NULL, ...)
 
 \method{print}{SMI}(x, ...)
 
 \method{summary}{SMI}(object, ...)
 
-is.signif(x, signif = 0.05, B = 10000)
+is.signif(x, signif = 0.05, B = 10000, ...)
 }
 \arguments{
 \item{x}{object of class \code{SMI}.}
@@ -41,6 +42,14 @@ is.signif(x, signif = 0.05, B = 10000)
 
 \item{cex.sym}{optional scaling for significance symbols (default = 1)}
 
+\item{frame}{two element integer vector indicating framed components.}
+
+\item{frame.col}{color for framed components.}
+
+\item{frame.lwd}{line width for framed components.}
+
+\item{replicates}{vector of replicates for significance testing.}
+
 \item{...}{additional arguments for \code{plot}.}
 
 \item{object}{object of class \code{SMI}.}
@@ -57,15 +66,15 @@ are dark. If orthogonal projections have been used for calculating SMIs, signifi
 are included in the plot unless signif=NULL.
 }
 \examples{
-X1  <- matrix(rnorm(100*300),100,300)
+X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 usv <- svd(X1)
 X2  <- usv$u[,-3] \%*\% diag(usv$d[-3]) \%*\% t(usv$v[,-3])
 
 smi <- SMI(X1,X2,5,5)
-plot(smi)
+plot(smi, B = 1000) # default B = 10000
 print(smi)
 summary(smi)
-is.signif(smi)
+is.signif(smi, B = 1000) # default B = 10000
 
 }
 \author{
@@ -75,6 +84,6 @@ Kristian Hovde Liland
 Similarity of Matrices Index - Ulf G. Indahl, Tormod Næs, Kristian Hovde Liland
 }
 \seealso{
-\code{\link{SMI}}.
+\code{\link{SMI}}, \code{\link{PCAcv} (cross-validated PCA)}.
 }
 

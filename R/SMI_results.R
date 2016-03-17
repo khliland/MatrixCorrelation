@@ -15,6 +15,10 @@
 #' @param B number of permutations (for significant, default=10000).
 #' @param cex optional text scaling (default = 1)
 #' @param cex.sym optional scaling for significance symbols (default = 1)
+#' @param frame two element integer vector indicating framed components.
+#' @param frame.col color for framed components.
+#' @param frame.lwd line width for framed components.
+#' @param replicates vector of replicates for significance testing.
 #' @param ... additional arguments for \code{plot}.
 #'
 #' @details For plotting a diamonad plot is used. High SMI values are light and low SMI values
@@ -27,25 +31,27 @@
 #'
 #' @references Similarity of Matrices Index - Ulf G. Indahl, Tormod Næs, Kristian Hovde Liland
 #'
-#' @seealso \code{\link{SMI}}.
+#' @seealso \code{\link{SMI}}, \code{\link{PCAcv} (cross-validated PCA)}.
 #'
 #' @examples
-#' X1  <- matrix(rnorm(100*300),100,300)
+#' X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 #' usv <- svd(X1)
 #' X2  <- usv$u[,-3] %*% diag(usv$d[-3]) %*% t(usv$v[,-3])
 #'
 #' smi <- SMI(X1,X2,5,5)
-#' plot(smi)
+#' plot(smi, B = 1000) # default B = 10000
 #' print(smi)
 #' summary(smi)
-#' is.signif(smi)
+#' is.signif(smi, B = 1000) # default B = 10000
 #'
 #' @importFrom grDevices dev.flush dev.hold rgb
 #' @importFrom graphics axis box grid lines par plot points polygon text
 #' @export
 plot.SMI <- function(x, y = NULL, x1lab = attr(x, "mat.names")[[1]], x2lab = attr(x, "mat.names")[[2]],
                      main = "SMI", signif = 0.05,
-                     xlim = c(-(pq[1])/2,(pq[2]+1)/2), ylim = c(0.75,(sum(pq)+2.5)/2), B = 10000, cex = 1, cex.sym = 1, ...){
+                     xlim = c(-(pq[1]+1)/2,(pq[2]+1)/2), ylim = c(0.5,(sum(pq)+3.0)/2), 
+                     B = 10000, cex = 1, cex.sym = 1, 
+                     frame = NULL, frame.col = 'red', frame.lwd = 2, replicates = NULL, ...){
   pq <- dim(x)
 
   dev.hold()
@@ -57,7 +63,8 @@ plot.SMI <- function(x, y = NULL, x1lab = attr(x, "mat.names")[[1]], x2lab = att
   par(pty="s")
 
   # Prepare plotting
-  plot(0,1.5,col='white', xlim = xlim, ylim = ylim, main = main, axes = FALSE, xlab='', ylab='', cex=cex, ...)
+  plot(0,1.5,col='white', xlim = xlim, ylim = ylim, 
+       main = main, axes = FALSE, xlab='', ylab='', cex=cex, ...)
 
   # Polygon loops
   for(p in 1:pq[1]){
@@ -66,10 +73,10 @@ plot.SMI <- function(x, y = NULL, x1lab = attr(x, "mat.names")[[1]], x2lab = att
       polygon(x1+c(0, 0.5, 0, -0.5), x2+c(0, 0.5, 1, 0.5), col = rgb(x[p,q],x[p,q],x[p,q]), border=NA, )
     }
   }
-
+  
   # Plot significance symbols
   if(!is.null(signif)){
-    Pval <- significant(x, B)
+    Pval <- significant(x, B, replicates)
     n <- attr(x, "n")
     for(p in 1:pq[1]){
       for(q in 1:pq[2]){
@@ -119,14 +126,22 @@ plot.SMI <- function(x, y = NULL, x1lab = attr(x, "mat.names")[[1]], x2lab = att
     }
   }
 
+  # Frame some components
+  if(!is.null(frame)){
+    ox <- frame[1]
+    oy <- frame[2]
+    polygon(c(0, oy*0.5, (oy-ox)/2, -ox*0.5), c(0, oy*0.5, (oy+ox)/2, ox*0.5)+1, 
+            border = frame.col, lwd = frame.lwd)
+  }
+
   # Legend
   cols <- seq(0,1,length.out=200)
   color.legend(xlim[2]+diff(xlim)*0.06, ylim[1], xlim[2]+diff(xlim)*0.11, ylim[2],
                seq(0,1,by=0.1), rgb(cols,cols,cols), align="lt", gradient="y", cex=cex*0.8)
 
   # Axis labels
-  text(3*pq[2]/8, 1+pq[2]/8, x2lab, adj=0.5, cex=cex, ...)
-  text(-3*pq[1]/8,1+pq[1]/8, x1lab, adj=0.5, cex=cex, ...)
+  text(3*pq[2]/8+0.25, 0.75+pq[2]/8, x2lab, adj=0.5, cex=cex, ...)
+  text(-3*pq[1]/8-0.25,0.75+pq[1]/8, x1lab, adj=0.5, cex=cex, ...)
   par(pty=pty.old)
   par(mar=mar.old)
   invisible(NULL)
@@ -164,18 +179,16 @@ summary.SMI <- function(object, ...){
 
 #' @rdname plot.SMI
 #' @export
-is.signif <- function(x, signif = 0.05, B = 10000){
+is.signif <- function(x, signif = 0.05, B = 10000, ...){
   # Check inputs/defaults
-  if(!attr(x,"orthogonal"))
-    stop('Significance testing is only supported for Orthogonal Projections')
   pq <- dim(x)
   sig <- matrix(FALSE, pq[1], pq[2])
   n <- attr(x, "n")
 
-  Pval <- significant(x, B)
+  Pval <- significant(x, B, ...)
   for(p in 1:pq[1]){
     for(q in 1:pq[2]){
-      if(Pval[p,q] > signif){
+      if(Pval[p,q] < signif){
         sig[p,q] <- TRUE
       }
     }

@@ -18,7 +18,7 @@
 #' @seealso \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{allCorrelations}} (matrix correlation comparison).
 #'
 #' @examples
-#' X1  <- matrix(rnorm(100*300),100,300)
+#' X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 #' PCAcv(X1,10)
 #'
 #' @export
@@ -33,14 +33,16 @@ PCAcv <- function(X, ncomp){
   
   # Set ncomp
   if(missing(ncomp)){
-    ncomp <- N[2]
+    ncomp <- min(N[1]-1,N[2])
+  } else {
+    ncomp <- min(ncomp,min(N[1]-1,N[2]))
   }
-  ncomp <- min(ncomp,N[2])
   
   # Prepare storage
   Xhat <- array(0, dim = c(N[1],N[2],ncomp))
   
   # Cross-validation (leave-one-out)
+  pb <- progress_bar$new(total = N[1], format = "  [:bar] :percent (:eta)")
   for(i in 1:N[1]){
     Xi  <- X[-i, , drop = FALSE]
     Pi  <- svds(Xi, k = ncomp,  nv = ncomp, nu = 0)$v
@@ -56,6 +58,7 @@ PCAcv <- function(X, ncomp){
       PP[lower.tri(PP)] <- 0
       Xhat[i,j, ] <- colSums(PP)
     }
+    pb$tick()
   }
   
   error <- numeric(ncomp)
