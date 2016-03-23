@@ -22,7 +22,7 @@
 #'
 #' @author Kristian Hovde Liland
 #'
-#' @references Similarity of Matrices Index - Ulf Geir Indahl, Tormod Næs, Kristian Hovde Liland
+#' @references A similarity index for comparing coupled matrices - Ulf Geir Indahl, Tormod Næs, Kristian Hovde Liland
 #'
 #' @seealso \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), 
 #' \code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}.
@@ -52,9 +52,6 @@ SMI <- function(X1, X2, ncomp1 = Rank(X1)-1, ncomp2 = Rank(X2)-1,
 
   # Initialize
   smi <- matrix(0, ncomp1, ncomp2)
-  mat.names <- c(substitute(X1), substitute(X2))
-  X1  <- as.matrix(X1)
-  X2  <- as.matrix(X2)
 
   # Check inputs
   projection <- match.arg(projection, c("Orthogonal", "Procrustes"))
@@ -62,6 +59,9 @@ SMI <- function(X1, X2, ncomp1 = Rank(X1)-1, ncomp2 = Rank(X2)-1,
   # Compute scores by PCA if not supplied
   has.scores <- TRUE
   if(is.null(Scores1) && is.null(Scores2)){
+    mat.names <- c(substitute(X1), substitute(X2))
+    X1  <- as.matrix(X1)
+    X2  <- as.matrix(X2)
     nobj <- dim(X1)[1]
     if(dim(X2)[1] != nobj) stop('The number of objects (rows) must be equal.')
     if(dim(X1)[2] < ncomp1 || dim(X2)[2] < ncomp2) stop('The number of components cannot exceed the number of data columns.')
@@ -73,9 +73,11 @@ SMI <- function(X1, X2, ncomp1 = Rank(X1)-1, ncomp2 = Rank(X2)-1,
       Scores2 <- svds(X2 - rep(colMeans(X2), each = nobj), k = ncomp2, nu = ncomp2, nv = 0)$u
     }
     has.scores <- FALSE
+  } else {
+    mat.names <- c(substitute(Scores1), substitute(Scores2))
+    nobj <- dim(Scores1)[1]
   }
-  nobj <- dim(Scores1)[1]
-
+  
   # Compute SMI and tests
   if(projection == "Orthogonal"){
     if(ncomp1 > 1 && ncomp2 > 1){

@@ -1,0 +1,15 @@
+citHeader("To cite the MatrixCorrelation package in publications use:")
+
+citEntry(entry = "Article",
+  title        = "A similarity index for comparing coupled matrices",
+  author       = personList(as.person("Ulf Geir Indahl"), as.person("Tormod Næs"), as.person("Kristian Hovde Liland")),
+  year         = "2016",
+  volume	     = "",
+  pages        = "",
+  journal      = "Submitted for review",
+
+  textVersion  =
+  paste("Ulf Geir Indahl, Tormod Næs and Kristian Hovde Liland (2016).",
+        "A similarity index for comparing coupled matrices.",
+        "Submitted for review.")
+)
