@@ -56,7 +56,7 @@ plot( SMI(candy$Panel1, candy$Panel2, 3,3, projection = "Procrustes"),
 Kristian Hovde Liland
 }
 \references{
-Similarity of Matrices Index - Ulf Geir Indahl, Tormod Næs, Kristian Hovde Liland
+A similarity index for comparing coupled matrices - Ulf Geir Indahl, Tormod Næs, Kristian Hovde Liland
 }
 \seealso{
 \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), 

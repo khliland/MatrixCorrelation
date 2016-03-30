@@ -10,6 +10,8 @@ cor.test_eq(x, y, B = 10000)
 \item{x}{first \code{vector} to be compared (or two column \code{matrix/data.frame}).}
 
 \item{y}{second \code{vector} to be compared (ommit if included in \code{x}).}
+
+\item{B}{integer number of permutations, default = 10000.}
 }
 \value{
 A value indicating if the two input vectors are signficantly different.

@@ -4,6 +4,7 @@
 #'
 #' @param x first \code{vector} to be compared (or two column \code{matrix/data.frame}).
 #' @param y second \code{vector} to be compared (ommit if included in \code{x}).
+#' @param B integer number of permutations, default = 10000.
 #'
 #' @details This is a convenience function combining \code{SMI} and \code{significant} for the
 #' special case of vector vs vector comparisons. The nullhypothesis is that the correlation

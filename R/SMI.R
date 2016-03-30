@@ -42,7 +42,7 @@
 #'     frame = c(2,2), B = 1000 ) # default B = 10000
 #'
 #' @importFrom pracma Rank subspace Trace std
-#' @importFrom rARPACK svds
+#' @importFrom RSpectra svds
 #' @importFrom plotrix color.legend
 #' @importFrom Rcpp sourceCpp
 #' @useDynLib MatrixCorrelation
