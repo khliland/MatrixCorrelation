@@ -1,12 +1,14 @@
-#' @aliases RV2 RVadj
+#' @aliases RV2 RVadj RVadjMaye RVadjGhaziri
 #' @title RV coefficients
 #'
 #' @description Three different RV coefficients: RV, RV2 and adusted RV.
 #'
 #' @param X1 first \code{matrix} to be compared (\code{data.frames} are also accepted).
 #' @param X2 second \code{matrix} to be compared (\code{data.frames} are also accepted).
+#' @param version Which version of RV adjusted to apply: "Maye" (default) or "Ghaziri"
+#' RV adjusted is run using the \code{RVadj} function.
 #'
-#' @details For each of the three coefficients a single scalar is computed to describe
+#' @details For each of the four coefficients a single scalar is computed to describe
 #' the similarity between the two input matrices.
 #'
 #' @return A single value measuring the similarity of two matrices.
@@ -21,6 +23,8 @@
 #'  for high-dimensional data: the modified RV-coefficient". Bioinformatics 25(3): 401-5.}
 #'  \item{Adjusted RV:}{ Maye, CD; Lorent, J; Horgan, GW. (2011). "Exploratory analysis of multiple omics
 #'  datasets using the adjusted RV coefficient". Stat Appl Genet Mol Biol. 10(14).}
+#'  \item{Adjusted RV:}{ El Ghaziri, A; Qannari, E.M. (2015) "Measures of association between 
+#'  two datasets; Application to sensory data", Food Quality and Preference 40 (A): 116-124.}
 #' }
 #'
 #' @seealso \code{\link{SMI}}, \code{\link{r1}} (r2/r3/r4/GCD).
@@ -57,7 +61,7 @@ RV2 <- function(X1, X2){
 
 #' @rdname RV
 #' @export
-RVadj <- function(X1, X2){
+RVadjMaye <- function(X1, X2){
   n <- dim(X1)[1]
   p <- dim(X1)[2]
   q <- dim(X2)[2]
@@ -85,4 +89,34 @@ RVadj <- function(X1, X2){
              (qq-(n-1)/(n-2)*(qq-trace(BB %*% BB) / (n-1)^2)))
   }
   RVadj
+}
+
+
+#' @rdname RV
+#' @export
+RVadjGhaziri <- function(X1, X2){
+  n <- dim(X1)[1]
+  
+  AA <- tcrossprod(X1)
+  BB <- tcrossprod(X2)
+  
+  rv  <- Trace(AA %*% BB) / sqrt(Trace(AA %*% AA) * Trace(BB %*% BB))
+  mrvB <- sqrt(Trace(AA)^2 / Trace(AA %*% AA)) * sqrt(Trace(BB)^2 / Trace(BB %*% BB)) / (n-1)
+  aRV  <- (rv - mrvB) / (1 - mrvB)
+  aRV
+}
+
+
+#' @rdname RV
+#' @export
+RVadj <- function(X1, X2, version = c("Maye","Ghaziri")){
+  if(version == "Maye" || length(version) == 2){
+    return( RVadjMaye(X1, X2) )
+  } else {
+    if(version == "Ghaziri"){
+      return( RVadjGhaziri(X1, X2) )
+    } else {
+      stop("Unsupported or misspelled version of RV adjusted. Use \"Maye\" or \"Ghaziri\"")
+    }
+  }
 }

@@ -81,7 +81,7 @@ is.signif(smi, B = 1000) # default B = 10000
 Kristian Hovde Liland
 }
 \references{
-Similarity of Matrices Index - Ulf G. Indahl, Tormod Næs, Kristian Hovde Liland
+Similarity of Matrices Index - Ulf G. Indahl, Tormod NÃ¦s, Kristian Hovde Liland
 }
 \seealso{
 \code{\link{SMI}}, \code{\link{PCAcv} (cross-validated PCA)}.

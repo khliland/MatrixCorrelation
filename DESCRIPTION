@@ -2,12 +2,12 @@ Encoding: latin1
 Package: MatrixCorrelation
 Type: Package
 Title: Matrix Correlation Coefficients
-Version: 0.8.0
-Date: 2016-03-16
+Version: 0.8.1
+Date: 2016-04-24
 Authors@R: c(person("Kristian Hovde", "Liland", role = c("aut","cre"), email="kristian.liland@nofima.no"),
- person("Tormod", "Næs", role=c("ctb")), person("Ulf Geir", "Indahl", role="ctb"))
+ person("Tormod", "NÃ¦s", role=c("ctb")), person("Ulf Geir", "Indahl", role="ctb"))
 Author: Kristian Hovde Liland [aut, cre],
-  Tormod Næs [ctb],
+  Tormod NÃ¦s [ctb],
   Ulf Geir Indahl [ctb]
 Maintainer: Kristian Hovde Liland <kristian.liland@nofima.no>
 Description: Computation and visualization of matrix correlation coefficients.

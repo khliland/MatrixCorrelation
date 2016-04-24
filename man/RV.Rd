@@ -4,18 +4,27 @@
 \alias{RV}
 \alias{RV2}
 \alias{RVadj}
+\alias{RVadjGhaziri}
+\alias{RVadjMaye}
 \title{RV coefficients}
 \usage{
 RV(X1, X2)
 
 RV2(X1, X2)
 
-RVadj(X1, X2)
+RVadjMaye(X1, X2)
+
+RVadjGhaziri(X1, X2)
+
+RVadj(X1, X2, version = c("Maye", "Ghaziri"))
 }
 \arguments{
 \item{X1}{first \code{matrix} to be compared (\code{data.frames} are also accepted).}
 
 \item{X2}{second \code{matrix} to be compared (\code{data.frames} are also accepted).}
+
+\item{version}{Which version of RV adjusted to apply: "Maye" (default) or "Ghaziri"
+RV adjusted is run using the \code{RVadj} function.}
 }
 \value{
 A single value measuring the similarity of two matrices.
@@ -24,7 +33,7 @@ A single value measuring the similarity of two matrices.
 Three different RV coefficients: RV, RV2 and adusted RV.
 }
 \details{
-For each of the three coefficients a single scalar is computed to describe
+For each of the four coefficients a single scalar is computed to describe
 the similarity between the two input matrices.
 }
 \examples{
@@ -48,6 +57,8 @@ Kristian Hovde Liland
  for high-dimensional data: the modified RV-coefficient". Bioinformatics 25(3): 401-5.}
  \item{Adjusted RV:}{ Maye, CD; Lorent, J; Horgan, GW. (2011). "Exploratory analysis of multiple omics
  datasets using the adjusted RV coefficient". Stat Appl Genet Mol Biol. 10(14).}
+ \item{Adjusted RV:}{ El Ghaziri, A; Qannari, E.M. (2015) "Measures of association between 
+ two datasets; Application to sensory data", Food Quality and Preference 40 (A): 116-124.}
 }
 }
 \seealso{

@@ -14,7 +14,7 @@ on a number of candy products obtained by sensory labs. The two labs
 and the associated data sets are parts of a larger study described in Tomic et al. (2010),
 }
 \references{
-Tomic, O., Luciano, G., Nilsen, A., Hyldig, G., Lorensen, K., Næs, T. (2010). 
+Tomic, O., Luciano, G., Nilsen, A., Hyldig, G., Lorensen, K., NÃ¦s, T. (2010). 
 Analysing sensory panel performance in a proficiency test using the PanelCheck software. 
 European Food Research and Technology. 230. 3, 497-511
 }
