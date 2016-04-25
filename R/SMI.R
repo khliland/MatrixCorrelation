@@ -45,6 +45,7 @@
 #' @importFrom RSpectra svds
 #' @importFrom plotrix color.legend
 #' @importFrom Rcpp sourceCpp
+#' @importFrom stats cor
 #' @useDynLib MatrixCorrelation
 #' @export
 SMI <- function(X1, X2, ncomp1 = Rank(X1)-1, ncomp2 = Rank(X2)-1,

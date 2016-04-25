@@ -14,7 +14,7 @@
 #'  \item{r2:}{ orientation-independent inner product correlation}
 #'  \item{r3:}{ spectra-independent inner product correlations (including orientation)}
 #'  \item{r4:}{ Spectra-Independent inner product Correlations}
-#'  \item{GCD:}{ Yanai's GCD Measure}
+#'  \item{GCD:}{ Yanai's GCD Measure. To reproduce the original GCD, use all components.}
 #' }
 #'
 #' @return A single value measuring the similarity of two matrices.
