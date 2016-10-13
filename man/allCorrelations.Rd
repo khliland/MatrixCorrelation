@@ -5,7 +5,6 @@
 \title{All correlations}
 \usage{
 allCorrelations(X1, X2, ncomp1, ncomp2, methods = c("SMI", "RV", "RV2",
-  "RVadj", "r1", "r2", "r3", "r4", "GCD"), digits = 3, plot = TRUE,
   xlab = "", ylab = "", ...)
 }
 \arguments{
@@ -17,7 +16,6 @@ allCorrelations(X1, X2, ncomp1, ncomp2, methods = c("SMI", "RV", "RV2",
 
 \item{ncomp2}{maximum number of subspace components from the second \code{matrix}.}
 
-\item{methods}{\code{character} vector containing a subset of the supported methods: "SMI", "RV", "RV2", "RVadj", "r1", "r2", "r3", "r4", "GCD".}
 
 \item{digits}{number of digits for numerical output.}
 

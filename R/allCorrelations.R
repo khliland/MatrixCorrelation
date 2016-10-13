@@ -6,7 +6,6 @@
 #' @param X2 second \code{matrix} to be compared (\code{data.frames} are also accepted).
 #' @param ncomp1 maximum number of subspace components from the first \code{matrix}.
 #' @param ncomp2 maximum number of subspace components from the second \code{matrix}.
-#' @param methods \code{character} vector containing a subset of the supported methods: "SMI", "RV", "RV2", "RVadj", "r1", "r2", "r3", "r4", "GCD".
 #' @param digits number of digits for numerical output.
 #' @param plot logical indicating if plotting should be performed (default = TRUE).
 #' @param xlab optional x axis label.
@@ -42,7 +41,6 @@
 #' @export
 allCorrelations <- function(X1,X2,
                             ncomp1, ncomp2,
-                            methods = c("SMI","RV","RV2","RVadj","r1","r2","r3","r4","GCD"),
                             digits = 3, plot = TRUE, xlab = '', ylab = '', ...){
   # Handle components
   if(missing(ncomp1) && ("SMI" %in% methods || "GCD" %in% methods)){

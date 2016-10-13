@@ -47,7 +47,7 @@ RVadj(X1,X2)
 
 }
 \author{
-Kristian Hovde Liland
+Kristian Hovde Liland, Benjamin Leutner (RV2)
 }
 \references{
 \itemize{

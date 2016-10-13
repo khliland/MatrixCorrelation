@@ -13,7 +13,7 @@
 #'
 #' @return A single value measuring the similarity of two matrices.
 #'
-#' @author Kristian Hovde Liland
+#' @author Kristian Hovde Liland, Benjamin Leutner (RV2)
 #'
 #' @references
 #' \itemize{
@@ -50,13 +50,14 @@ RV <- function(X1, X2){
 #' @rdname RV
 #' @export
 RV2 <- function(X1, X2){
-  AA  <- tcrossprod(X1)
-  BB  <- tcrossprod(X2)
-  AA0 <- AA; diag(AA0) <- 0
-  BB0 <- BB; diag(BB0) <- 0
-
-  RV2 <- Trace(AA0%*%BB0) / (sum(AA0^2)^0.5*sum(BB0^2)^0.5)
-  RV2
+  return(RV2cpp(X1, X2))
+  # AA  <- tcrossprod(X1)
+  # BB  <- tcrossprod(X2)
+  # AA0 <- AA; diag(AA0) <- 0
+  # BB0 <- BB; diag(BB0) <- 0
+  # 
+  # RV2 <- Trace(AA0%*%BB0) / (sum(AA0^2)^0.5*sum(BB0^2)^0.5)
+  # RV2
 }
 
 #' @rdname RV

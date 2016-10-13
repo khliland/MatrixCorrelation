@@ -14,6 +14,7 @@ LaTeX: XeLaTeX
 
 BuildType: Package
 PackageUseDevtools: Yes
+PackagePath: H:/Documents/GitHub/MatrixCorrelation
 PackageInstallArgs: --no-multiarch --with-keep.source
-PackageCheckArgs: --as-cran
+PackageCheckArgs: --as-cran --library=C:/R/Library
 PackageRoxygenize: rd,collate,namespace
