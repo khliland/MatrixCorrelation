@@ -4,8 +4,12 @@
 \alias{RV}
 \alias{RV2}
 \alias{RVadj}
-\alias{RVadjGhaziri}
 \alias{RVadjMaye}
+\alias{RVadjGhaziri}
+\alias{RV2}
+\alias{RVadjMaye}
+\alias{RVadjGhaziri}
+\alias{RVadj}
 \title{RV coefficients}
 \usage{
 RV(X1, X2)
@@ -46,9 +50,6 @@ RV2(X1,X2)
 RVadj(X1,X2)
 
 }
-\author{
-Kristian Hovde Liland, Benjamin Leutner (RV2)
-}
 \references{
 \itemize{
  \item{RV:}{ Robert, P.; Escoufier, Y. (1976). "A Unifying Tool for Linear Multivariate
@@ -64,4 +65,6 @@ Kristian Hovde Liland, Benjamin Leutner (RV2)
 \seealso{
 \code{\link{SMI}}, \code{\link{r1}} (r2/r3/r4/GCD).
 }
-
+\author{
+Kristian Hovde Liland, Benjamin Leutner (RV2)
+}

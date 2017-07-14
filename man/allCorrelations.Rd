@@ -47,9 +47,6 @@ X2  <- usv$u[,-3] \%*\% diag(usv$d[-3]) \%*\% t(usv$v[,-3])
 allCorrelations(X1,X2, ncomp1 = 5,ncomp2 = 5)
 
 }
-\author{
-Kristian Hovde Liland
-}
 \references{
 \itemize{
  \item{RV:}{ Robert, P.; Escoufier, Y. (1976). "A Unifying Tool for Linear Multivariate
@@ -63,4 +60,6 @@ Kristian Hovde Liland
 \seealso{
 \code{\link{SMI}}, \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD).
 }
-
+\author{
+Kristian Hovde Liland
+}

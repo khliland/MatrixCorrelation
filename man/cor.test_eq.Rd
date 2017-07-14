@@ -30,9 +30,6 @@ b <- (1:5) + rnorm(5)
 cor.test_eq(a,b)
 
 }
-\author{
-Kristian Hovde Liland
-}
 \references{
 Similarity of Matrices Index - Ulf Geir Indahl, Tormod Næs, Kristian Hovde Liland
 }
@@ -40,4 +37,6 @@ Similarity of Matrices Index - Ulf Geir Indahl, Tormod Næs, Kristian Hovde Lila
 \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), 
 \code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}.
 }
-
+\author{
+Kristian Hovde Liland
+}

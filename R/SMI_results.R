@@ -29,7 +29,7 @@
 #'
 #' @author Kristian Hovde Liland
 #'
-#' @references Similarity of Matrices Index - Ulf G. Indahl, Tormod NÃ¦s, Kristian Hovde Liland
+#' @references Similarity of Matrices Index - Ulf G. Indahl, Tormod Næs, Kristian Hovde Liland
 #'
 #' @seealso \code{\link{SMI}}, \code{\link{PCAcv} (cross-validated PCA)}.
 #'

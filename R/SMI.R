@@ -22,7 +22,7 @@
 #'
 #' @author Kristian Hovde Liland
 #'
-#' @references A similarity index for comparing coupled matrices - Ulf Geir Indahl, Tormod NÃ¦s, Kristian Hovde Liland
+#' @references A similarity index for comparing coupled matrices - Ulf Geir Indahl, Tormod Næs, Kristian Hovde Liland
 #'
 #' @seealso \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), 
 #' \code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}.
@@ -46,7 +46,7 @@
 #' @importFrom plotrix color.legend
 #' @importFrom Rcpp sourceCpp
 #' @importFrom stats cor
-#' @useDynLib MatrixCorrelation
+#' @useDynLib MatrixCorrelation, .registration = TRUE
 #' @export
 SMI <- function(X1, X2, ncomp1 = Rank(X1)-1, ncomp2 = Rank(X2)-1,
                 projection = "Orthogonal", Scores1 = NULL, Scores2 = NULL){
@@ -69,6 +69,8 @@ SMI <- function(X1, X2, ncomp1 = Rank(X1)-1, ncomp2 = Rank(X2)-1,
     if(min(dim(X1)) < 3 || min(dim(X2)) < 3 || dim(X1)[2] == ncomp1 ||  dim(X2)[2] == ncomp2){
       Scores1 <- svd(X1 - rep(colMeans(X1), each = nobj))$u
       Scores2 <- svd(X2 - rep(colMeans(X2), each = nobj))$u
+      Scores1 <- Scores1[ ,1:ncomp1, drop = FALSE]
+      Scores2 <- Scores2[ ,1:ncomp2, drop = FALSE]
     } else {
       Scores1 <- svds(X1 - rep(colMeans(X1), each = nobj), k = ncomp1, nu = ncomp1, nv = 0)$u
       Scores2 <- svds(X2 - rep(colMeans(X2), each = nobj), k = ncomp2, nu = ncomp2, nv = 0)$u

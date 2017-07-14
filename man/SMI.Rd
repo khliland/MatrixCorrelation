@@ -52,9 +52,6 @@ plot( SMI(candy$Panel1, candy$Panel2, 3,3, projection = "Procrustes"),
     frame = c(2,2), B = 1000 ) # default B = 10000
 
 }
-\author{
-Kristian Hovde Liland
-}
 \references{
 A similarity index for comparing coupled matrices - Ulf Geir Indahl, Tormod Næs, Kristian Hovde Liland
 }
@@ -62,4 +59,6 @@ A similarity index for comparing coupled matrices - Ulf Geir Indahl, Tormod Næs
 \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), 
 \code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}.
 }
-
+\author{
+Kristian Hovde Liland
+}

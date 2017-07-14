@@ -27,4 +27,3 @@ PSI(X1,X2)
 \references{
 Sibson, R; 1978. "Studies in the Robustness of Multidimensional Scaling: Procrustes Statistics". Journal of the Royal Statistical Society. Series B (Methodological), Vol. 40, No. 2, pp. 234-238.
 }
-

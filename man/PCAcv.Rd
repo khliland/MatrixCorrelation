@@ -27,13 +27,12 @@ X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 PCAcv(X1,10)
 
 }
-\author{
-Kristian Hovde Liland
-}
 \references{
 R. Bro, K. Kjeldahl, A.K. Smilde, H.A.L. Kiers, Cross-validation of component models: A critical look at current methods. Anal Bioanal Chem (2008) 390: 1241-1251.
 }
 \seealso{
 \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{allCorrelations}} (matrix correlation comparison).
 }
-
+\author{
+Kristian Hovde Liland
+}

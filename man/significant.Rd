@@ -35,13 +35,12 @@ X2  <- usv$u[,-3] \%*\% diag(usv$d[-3]) \%*\% t(usv$v[,-3])
 significant(smi, B = 1000) # default B = 10000
 
 }
-\author{
-Kristian Hovde Liland
-}
 \references{
 Similarity of Matrices Index - Ulf G. Indahl, Tormod Næs, Kristian Hovde Liland
 }
 \seealso{
 \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{allCorrelations}} (matrix correlation comparison).
 }
-
+\author{
+Kristian Hovde Liland
+}
