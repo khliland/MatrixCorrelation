@@ -2,8 +2,8 @@ Encoding: latin1
 Package: MatrixCorrelation
 Type: Package
 Title: Matrix Correlation Coefficients
-Version: 0.9.1
-Date: 2017-05-05
+Version: 0.9.2
+Date: 2017-09-24
 Authors@R: c(person("Kristian Hovde", "Liland", role = c("aut","cre"), email="kristian.liland@nmbu.no"),
  person("Tormod", "Næs", role=c("ctb")), person("Ulf Geir", "Indahl", role="ctb"))
 Author: Kristian Hovde Liland [aut, cre],

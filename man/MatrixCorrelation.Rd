@@ -16,7 +16,7 @@ Computation and visualization of matrix correlation coefficients.
 \code{\link{SMI}}, \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{allCorrelations}} (matrix correlation comparison).
 }
 \author{
-\strong{Maintainer}: Kristian Hovde Liland \email{kristian.liland@nofima.no}
+\strong{Maintainer}: Kristian Hovde Liland \email{kristian.liland@nmbu.no}
 
 Other contributors:
 \itemize{
