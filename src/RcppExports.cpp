@@ -8,7 +8,7 @@ using namespace Rcpp;
 
 // RV2cpp
 double RV2cpp(arma::mat X, arma::mat Y);
-RcppExport SEXP MatrixCorrelation_RV2cpp(SEXP XSEXP, SEXP YSEXP) {
+RcppExport SEXP _MatrixCorrelation_RV2cpp(SEXP XSEXP, SEXP YSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // significantRcpp
 NumericVector significantRcpp(SEXP smi1, SEXP T1, SEXP U1, SEXP B1);
-RcppExport SEXP MatrixCorrelation_significantRcpp(SEXP smi1SEXP, SEXP T1SEXP, SEXP U1SEXP, SEXP B1SEXP) {
+RcppExport SEXP _MatrixCorrelation_significantRcpp(SEXP smi1SEXP, SEXP T1SEXP, SEXP U1SEXP, SEXP B1SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -34,7 +34,7 @@ END_RCPP
 }
 // significantRepRcpp
 NumericVector significantRepRcpp(SEXP smi1, SEXP T1, SEXP U1, SEXP B1, SEXP perm, SEXP nrep, SEXP nseg, SEXP inperm);
-RcppExport SEXP MatrixCorrelation_significantRepRcpp(SEXP smi1SEXP, SEXP T1SEXP, SEXP U1SEXP, SEXP B1SEXP, SEXP permSEXP, SEXP nrepSEXP, SEXP nsegSEXP, SEXP inpermSEXP) {
+RcppExport SEXP _MatrixCorrelation_significantRepRcpp(SEXP smi1SEXP, SEXP T1SEXP, SEXP U1SEXP, SEXP B1SEXP, SEXP permSEXP, SEXP nrepSEXP, SEXP nsegSEXP, SEXP inpermSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;

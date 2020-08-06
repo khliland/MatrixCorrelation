@@ -1,0 +1,10 @@
+NEWS file for package MatrixCorrelation
+Collection of matrix correlation measures.
+Kristian Hovde Liland, Tormod Næs and Ulf Geir Indahl, Norway
+
+##### Version 0.9.4
+Date: 2 August 2020
+>> Corrected number of subspace dimensions in defaults for GCD.
+>> Added centering as default to all relevant measures (keeping legacy behaviour available through 'center' parameter).
+>> Added Rozeboom's linear correlation and Coxhead's Coefficient to the list of measures.
+>> Updated citiation.

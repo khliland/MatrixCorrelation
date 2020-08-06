@@ -1,3 +1,4 @@
+#' @encoding UTF-8
 #' @title Similarity of Matrices Index (SMI)
 #'
 #' @description A similarity index for comparing coupled data matrices.
@@ -22,7 +23,7 @@
 #'
 #' @author Kristian Hovde Liland
 #'
-#' @references A similarity index for comparing coupled matrices - Ulf Geir Indahl, Tormod Næs, Kristian Hovde Liland
+#' @references Ulf Geir Indahl, Tormod NÃ¦s, Kristian Hovde Liland; 2018. A similarity index for comparing coupled matrices. Journal of Chemometrics; e3049.
 #'
 #' @seealso \code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), 
 #' \code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}.
@@ -39,7 +40,7 @@
 #' # Sensory analysis
 #' data(candy)
 #' plot( SMI(candy$Panel1, candy$Panel2, 3,3, projection = "Procrustes"),
-#'     frame = c(2,2), B = 1000 ) # default B = 10000
+#'     frame = c(2,2), B = 1000, x1lab = "Panel1", x2lab = "Panel2" ) # default B = 10000
 #'
 #' @importFrom pracma Rank subspace Trace std
 #' @importFrom RSpectra svds

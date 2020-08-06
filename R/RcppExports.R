@@ -2,14 +2,14 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 RV2cpp <- function(X, Y) {
-    .Call(MatrixCorrelation_RV2cpp, X, Y)
+    .Call(`_MatrixCorrelation_RV2cpp`, X, Y)
 }
 
 significantRcpp <- function(smi1, T1, U1, B1) {
-    .Call(MatrixCorrelation_significantRcpp, smi1, T1, U1, B1)
+    .Call(`_MatrixCorrelation_significantRcpp`, smi1, T1, U1, B1)
 }
 
 significantRepRcpp <- function(smi1, T1, U1, B1, perm, nrep, nseg, inperm) {
-    .Call(MatrixCorrelation_significantRepRcpp, smi1, T1, U1, B1, perm, nrep, nseg, inperm)
+    .Call(`_MatrixCorrelation_significantRepRcpp`, smi1, T1, U1, B1, perm, nrep, nseg, inperm)
 }
 

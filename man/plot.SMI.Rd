@@ -5,16 +5,26 @@
 \alias{print.SMI}
 \alias{summary.SMI}
 \alias{is.signif}
-\alias{print.SMI}
-\alias{summary.SMI}
-\alias{is.signif}
 \title{Result functions for the Similarity of Matrices Index (SMI)}
 \usage{
-\method{plot}{SMI}(x, y = NULL, x1lab = attr(x, "mat.names")[[1]],
-  x2lab = attr(x, "mat.names")[[2]], main = "SMI", signif = 0.05,
-  xlim = c(-(pq[1] + 1)/2, (pq[2] + 1)/2), ylim = c(0.5, (sum(pq) + 3)/2),
-  B = 10000, cex = 1, cex.sym = 1, frame = NULL, frame.col = "red",
-  frame.lwd = 2, replicates = NULL, ...)
+\method{plot}{SMI}(
+  x,
+  y = NULL,
+  x1lab = attr(x, "mat.names")[[1]],
+  x2lab = attr(x, "mat.names")[[2]],
+  main = "SMI",
+  signif = 0.05,
+  xlim = c(-(pq[1] + 1)/2, (pq[2] + 1)/2),
+  ylim = c(0.5, (sum(pq) + 3)/2),
+  B = 10000,
+  cex = 1,
+  cex.sym = 1,
+  frame = NULL,
+  frame.col = "red",
+  frame.lwd = 2,
+  replicates = NULL,
+  ...
+)
 
 \method{print}{SMI}(x, ...)
 

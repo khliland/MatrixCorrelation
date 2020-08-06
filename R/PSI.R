@@ -4,6 +4,7 @@
 #'
 #' @param X1 first \code{matrix} to be compared (\code{data.frames} are also accepted).
 #' @param X2 second \code{matrix} to be compared (\code{data.frames} are also accepted).
+#' @param center \code{logical} indicating if input matrices should be centered (default = TRUE).
 #'
 #' @return The Procrustes Similarity Index
 #' 
@@ -17,7 +18,13 @@
 #' 
 #' @importFrom pracma procrustes
 #' @export
-PSI <- function(X1, X2){
+PSI <- function(X1, X2, center = TRUE){
+  X1 <- as.matrix(X1)
+  X2 <- as.matrix(X2)
+  if(center){
+    X1 <- X1 - rep(colMeans(X1), each = nrow(X1))
+    X2 <- X2 - rep(colMeans(X2), each = nrow(X1))
+  }
   tr <- procrustes(as.matrix(X1),as.matrix(X2))$Q
   Trace(crossprod(X1,X2)%*%tr)/sqrt(Trace(crossprod(X1))*Trace(crossprod(X2)))
 }

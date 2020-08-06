@@ -5,6 +5,7 @@
 #'
 #' @param X1 first \code{matrix} to be compared (\code{data.frames} are also accepted).
 #' @param X2 second \code{matrix} to be compared (\code{data.frames} are also accepted).
+#' @param center \code{logical} indicating if input matrices should be centered (default = TRUE).
 #' @param version Which version of RV adjusted to apply: "Maye" (default) or "Ghaziri"
 #' RV adjusted is run using the \code{RVadj} function.
 #'
@@ -23,11 +24,11 @@
 #'  for high-dimensional data: the modified RV-coefficient". Bioinformatics 25(3): 401-5.}
 #'  \item{Adjusted RV:}{ Maye, CD; Lorent, J; Horgan, GW. (2011). "Exploratory analysis of multiple omics
 #'  datasets using the adjusted RV coefficient". Stat Appl Genet Mol Biol. 10(14).}
-#'  \item{Adjusted RV:}{ El Ghaziri, A; Qannari, E.M. (2015) "Measures of association between 
+#'  \item{Adjusted RV:}{ El Ghaziri, A; Qannari, E.M. (2015) "Measures of association between
 #'  two datasets; Application to sensory data", Food Quality and Preference 40 (A): 116-124.}
 #' }
 #'
-#' @seealso \code{\link{SMI}}, \code{\link{r1}} (r2/r3/r4/GCD).
+#' @seealso \code{\link{SMI}}, \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{Rozeboom}}, \code{\link{Coxhead}}.
 #'
 #' @examples
 #' X1  <- matrix(rnorm(100*300),100,300)
@@ -39,7 +40,13 @@
 #' RVadj(X1,X2)
 #'
 #' @export
-RV <- function(X1, X2){
+RV <- function(X1, X2, center = TRUE){
+  X1 <- as.matrix(X1)
+  X2 <- as.matrix(X2)
+  if(center){
+    X1 <- X1 - rep(colMeans(X1), each = nrow(X1))
+    X2 <- X2 - rep(colMeans(X2), each = nrow(X1))
+  }
   AA <- tcrossprod(X1)
   BB <- tcrossprod(X2)
 
@@ -49,20 +56,32 @@ RV <- function(X1, X2){
 
 #' @rdname RV
 #' @export
-RV2 <- function(X1, X2){
+RV2 <- function(X1, X2, center = TRUE){
+  X1 <- as.matrix(X1)
+  X2 <- as.matrix(X2)
+  if(center){
+    X1 <- X1 - rep(colMeans(X1), each = nrow(X1))
+    X2 <- X2 - rep(colMeans(X2), each = nrow(X1))
+  }
   return(RV2cpp(X1, X2))
   # AA  <- tcrossprod(X1)
   # BB  <- tcrossprod(X2)
   # AA0 <- AA; diag(AA0) <- 0
   # BB0 <- BB; diag(BB0) <- 0
-  # 
+  #
   # RV2 <- Trace(AA0%*%BB0) / (sum(AA0^2)^0.5*sum(BB0^2)^0.5)
   # RV2
 }
 
 #' @rdname RV
 #' @export
-RVadjMaye <- function(X1, X2){
+RVadjMaye <- function(X1, X2, center = TRUE){
+  X1 <- as.matrix(X1)
+  X2 <- as.matrix(X2)
+  if(center){
+    X1 <- X1 - rep(colMeans(X1), each = nrow(X1))
+    X2 <- X2 - rep(colMeans(X2), each = nrow(X1))
+  }
   n <- dim(X1)[1]
   p <- dim(X1)[2]
   q <- dim(X2)[2]
@@ -95,12 +114,18 @@ RVadjMaye <- function(X1, X2){
 
 #' @rdname RV
 #' @export
-RVadjGhaziri <- function(X1, X2){
+RVadjGhaziri <- function(X1, X2, center = TRUE){
+  X1 <- as.matrix(X1)
+  X2 <- as.matrix(X2)
+  if(center){
+    X1 <- X1 - rep(colMeans(X1), each = nrow(X1))
+    X2 <- X2 - rep(colMeans(X2), each = nrow(X1))
+  }
   n <- dim(X1)[1]
-  
+
   AA <- tcrossprod(X1)
   BB <- tcrossprod(X2)
-  
+
   rv  <- Trace(AA %*% BB) / sqrt(Trace(AA %*% AA) * Trace(BB %*% BB))
   mrvB <- sqrt(Trace(AA)^2 / Trace(AA %*% AA)) * sqrt(Trace(BB)^2 / Trace(BB %*% BB)) / (n-1)
   aRV  <- (rv - mrvB) / (1 - mrvB)
@@ -110,12 +135,12 @@ RVadjGhaziri <- function(X1, X2){
 
 #' @rdname RV
 #' @export
-RVadj <- function(X1, X2, version = c("Maye","Ghaziri")){
-  if(version == "Maye" || length(version) == 2){
-    return( RVadjMaye(X1, X2) )
+RVadj <- function(X1, X2, version = c("Maye","Ghaziri"), center = TRUE){
+  if(length(version) == 2 || version == "Maye"){
+    return( RVadjMaye(X1, X2, center = center) )
   } else {
     if(version == "Ghaziri"){
-      return( RVadjGhaziri(X1, X2) )
+      return( RVadjGhaziri(X1, X2, center = center) )
     } else {
       stop("Unsupported or misspelled version of RV adjusted. Use \"Maye\" or \"Ghaziri\"")
     }

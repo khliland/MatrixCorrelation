@@ -7,14 +7,16 @@ AlwaysSaveHistory: Yes
 EnableCodeIndexing: Yes
 UseSpacesForTab: Yes
 NumSpacesForTab: 2
-Encoding: ISO8859-1
+Encoding: UTF-8
 
 RnwWeave: knitr
 LaTeX: XeLaTeX
 
+AutoAppendNewline: Yes
+StripTrailingWhitespace: Yes
+
 BuildType: Package
 PackageUseDevtools: Yes
-PackagePath: H:/Documents/GitHub/MatrixCorrelation
 PackageInstallArgs: --no-multiarch --with-keep.source
 PackageCheckArgs: --as-cran --library=C:/R/Library
 PackageRoxygenize: rd,collate,namespace

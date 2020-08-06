@@ -1,19 +1,16 @@
-Encoding: latin1
+Encoding: UTF-8
 Package: MatrixCorrelation
 Type: Package
 Title: Matrix Correlation Coefficients
-Version: 0.9.2
-Date: 2017-09-24
-Authors@R: c(person("Kristian Hovde", "Liland", role = c("aut","cre"), email="kristian.liland@nmbu.no"),
- person("Tormod", "Næs", role=c("ctb")), person("Ulf Geir", "Indahl", role="ctb"))
-Author: Kristian Hovde Liland [aut, cre],
-  Tormod Næs [ctb],
-  Ulf Geir Indahl [ctb]
-Maintainer: Kristian Hovde Liland <kristian.liland@nofima.no>
+Version: 0.9.4
+Date: 2020-08-02
+Author: Kristian Hovde Liland
+Maintainer: Kristian Hovde Liland <kristian.liland@nmbu.no>
 Description: Computation and visualization of matrix correlation coefficients.
     The main method is the Similarity of Matrices Index, while various related
-    measures like r1, r2, r3, r4, Yanai's GCD, RV, RV2 and adjusted RV are included
-    for comparison.
+    measures like r1, r2, r3, r4, Yanai's GCD, RV, RV2, adjusted RV, Rozeboom's
+    linear correlation and Coxhead's coefficient are included
+    for comparison and flexibility.
 Depends: R (>= 3.0.1)
 Imports:
     Rcpp,
@@ -23,7 +20,7 @@ Imports:
     RSpectra
 License: GPL-2
 LazyData: TRUE
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.0
 LinkingTo: 
     progress,
     Rcpp,

@@ -5,26 +5,25 @@
 \alias{r2}
 \alias{r3}
 \alias{r4}
-\alias{r2}
-\alias{r3}
-\alias{r4}
 \alias{GCD}
 \title{Correlational Measures for Matrices}
 \usage{
-r1(X1, X2)
+r1(X1, X2, center = TRUE)
 
-r2(X1, X2)
+r2(X1, X2, center = TRUE)
 
-r3(X1, X2)
+r3(X1, X2, center = TRUE)
 
-r4(X1, X2)
+r4(X1, X2, center = TRUE)
 
-GCD(X1, X2, ncomp1 = Rank(X1) - 1, ncomp2 = Rank(X2) - 1)
+GCD(X1, X2, ncomp1 = Rank(X1), ncomp2 = Rank(X2), center = TRUE)
 }
 \arguments{
 \item{X1}{first \code{matrix} to be compared (\code{data.frames} are also accepted).}
 
 \item{X2}{second \code{matrix} to be compared (\code{data.frames} are also accepted).}
+
+\item{center}{\code{logical} indicating if input matrices should be centered (default = TRUE).}
 
 \item{ncomp1}{(GCD) number of subspace components from the first \code{matrix} (default: full subspace).}
 
@@ -43,7 +42,7 @@ Details can be found in Ramsey's paper:
  \item{r2:}{ orientation-independent inner product correlation}
  \item{r3:}{ spectra-independent inner product correlations (including orientation)}
  \item{r4:}{ Spectra-Independent inner product Correlations}
- \item{GCD:}{ Yanai's GCD Measure. To reproduce the original GCD, use all components.}
+ \item{GCD:}{ Yanai's Generalized Coefficient of Determination (GCD) Measure. To reproduce the original GCD, use all components. When \code{X1} and \code{X2} are dummy variables, GCD is proportional with Pillai's criterion: tr(W^-1(B+W)).}
 }
 }
 \examples{

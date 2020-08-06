@@ -6,26 +6,24 @@
 \alias{RVadj}
 \alias{RVadjMaye}
 \alias{RVadjGhaziri}
-\alias{RV2}
-\alias{RVadjMaye}
-\alias{RVadjGhaziri}
-\alias{RVadj}
 \title{RV coefficients}
 \usage{
-RV(X1, X2)
+RV(X1, X2, center = TRUE)
 
-RV2(X1, X2)
+RV2(X1, X2, center = TRUE)
 
-RVadjMaye(X1, X2)
+RVadjMaye(X1, X2, center = TRUE)
 
-RVadjGhaziri(X1, X2)
+RVadjGhaziri(X1, X2, center = TRUE)
 
-RVadj(X1, X2, version = c("Maye", "Ghaziri"))
+RVadj(X1, X2, version = c("Maye", "Ghaziri"), center = TRUE)
 }
 \arguments{
 \item{X1}{first \code{matrix} to be compared (\code{data.frames} are also accepted).}
 
 \item{X2}{second \code{matrix} to be compared (\code{data.frames} are also accepted).}
+
+\item{center}{\code{logical} indicating if input matrices should be centered (default = TRUE).}
 
 \item{version}{Which version of RV adjusted to apply: "Maye" (default) or "Ghaziri"
 RV adjusted is run using the \code{RVadj} function.}
@@ -58,12 +56,12 @@ RVadj(X1,X2)
  for high-dimensional data: the modified RV-coefficient". Bioinformatics 25(3): 401-5.}
  \item{Adjusted RV:}{ Maye, CD; Lorent, J; Horgan, GW. (2011). "Exploratory analysis of multiple omics
  datasets using the adjusted RV coefficient". Stat Appl Genet Mol Biol. 10(14).}
- \item{Adjusted RV:}{ El Ghaziri, A; Qannari, E.M. (2015) "Measures of association between 
+ \item{Adjusted RV:}{ El Ghaziri, A; Qannari, E.M. (2015) "Measures of association between
  two datasets; Application to sensory data", Food Quality and Preference 40 (A): 116-124.}
 }
 }
 \seealso{
-\code{\link{SMI}}, \code{\link{r1}} (r2/r3/r4/GCD).
+\code{\link{SMI}}, \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{Rozeboom}}, \code{\link{Coxhead}}.
 }
 \author{
 Kristian Hovde Liland, Benjamin Leutner (RV2)

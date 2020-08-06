@@ -4,7 +4,9 @@
 \name{candy}
 \alias{candy}
 \title{Candy data}
-\format{Two matrices of dimension 18 x 6.}
+\format{
+Two matrices of dimension 18 x 6.
+}
 \usage{
 data(candy)
 }
