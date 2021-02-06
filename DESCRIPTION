@@ -2,8 +2,8 @@ Encoding: UTF-8
 Package: MatrixCorrelation
 Type: Package
 Title: Matrix Correlation Coefficients
-Version: 0.9.4
-Date: 2020-08-02
+Version: 0.9.5
+Date: 2021-02-03
 Author: Kristian Hovde Liland
 Maintainer: Kristian Hovde Liland <kristian.liland@nmbu.no>
 Description: Computation and visualization of matrix correlation coefficients.
@@ -20,7 +20,7 @@ Imports:
     RSpectra
 License: GPL-2
 LazyData: TRUE
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 LinkingTo: 
     progress,
     Rcpp,

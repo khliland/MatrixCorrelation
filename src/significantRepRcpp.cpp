@@ -2,7 +2,7 @@
 #include <RcppArmadillo.h>
 using namespace Rcpp;
 
-inline int randWrapper(const int n) { return floor(unif_rand()*n); }
+// inline int randWrapper(const int n) { return R::ftrunc(R::runif(0,n)); }
 
 // [[Rcpp::export]]
 NumericVector significantRepRcpp(SEXP smi1, SEXP T1, SEXP U1, SEXP B1, SEXP perm, SEXP nrep, SEXP nseg, SEXP inperm) {
@@ -33,9 +33,11 @@ NumericVector significantRepRcpp(SEXP smi1, SEXP T1, SEXP U1, SEXP B1, SEXP perm
   }
 
   for(arma::uword b=0; b<B; ++b){
-    std::random_shuffle ( Perm.begin(), Perm.end(), randWrapper );
+    auto rng1 = std::default_random_engine {};
+    auto rng2 = std::default_random_engine {};
+    std::shuffle ( Perm.begin(), Perm.end(), rng1 );
     for(int i=0; i<Nseg; ++i){
-      std::random_shuffle ( inPerm.begin(), inPerm.end(), randWrapper );
+      std::shuffle ( inPerm.begin(), inPerm.end(), rng2 );
       for(int j=0; j<Nrep; ++j){
         Tb.row(i*Nrep + j) = T.row(Perm[i]*Nrep + inPerm[j]);
       }
