@@ -51,7 +51,7 @@
 #' @export
 allCorrelations <- function(X1,X2,
                             ncomp1, ncomp2,
-                            methods = c("SMI","RV","RV2","RVadj","PSI","r1","r2","r3","r4","GCD","Rozeboom","Coxhead"),
+                            methods = c("SMI","RV","RV2","RVadj","PSI","r1","r2","r3","r4","GCD"),#,"Rozeboom","Coxhead"),
                             digits = 3, plot = TRUE, xlab = '', ylab = '', ...){
   # Handle components
   if(missing(ncomp1) && ("SMI" %in% methods || "GCD" %in% methods)){
