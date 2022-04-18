@@ -12,7 +12,9 @@ SMI(
   ncomp2 = Rank(X2) - 1,
   projection = "Orthogonal",
   Scores1 = NULL,
-  Scores2 = NULL
+  Scores2 = NULL,
+  impute = FALSE,
+  impute_par = list(max_iter = 20, tol = 10^-5)
 )
 }
 \arguments{
@@ -29,6 +31,10 @@ SMI(
 \item{Scores1}{user supplied score-\code{matrix} to replace singular value decomposition of first \code{matrix}.}
 
 \item{Scores2}{user supplied score-\code{matrix} to replace singular value decomposition of second \code{matrix}.}
+
+\item{impute}{\code{logical} for activation of PCA based imputation for X1/X2.}
+
+\item{impute_par}{named \code{list} of imputation parameters in case of NAs in X1/X2.}
 }
 \value{
 A matrix containing all combinations of components. Its class is "SMI" associated
@@ -38,7 +44,7 @@ with print, plot, summary methods.
 A similarity index for comparing coupled data matrices.
 }
 \details{
-A two-step process starts with extraction of stable subspaces using 
+A two-step process starts with extraction of stable subspaces using
 Principal Component Analysis or some other method yielding two orthonormal bases. These bases
 are compared using Orthogonal Projection (OP / ordinary least squares) or Procrustes
 Rotation (PR). The result is a similarity measure that can be adjusted to various
@@ -59,13 +65,18 @@ data(candy)
 plot( SMI(candy$Panel1, candy$Panel2, 3,3, projection = "Procrustes"),
     frame = c(2,2), B = 1000, x1lab = "Panel1", x2lab = "Panel2" ) # default B = 10000
 
+# Missing data (100 missing completely at random points each)
+X1[sort(round(runif(100)*29999+1))] <- NA
+X2[sort(round(runif(100)*29999+1))] <- NA
+(smi <- SMI(X1,X2,5,5, impute = TRUE))
+
 }
 \references{
 Ulf Geir Indahl, Tormod Næs, Kristian Hovde Liland; 2018. A similarity index for comparing coupled matrices. Journal of Chemometrics; e3049.
 }
 \seealso{
-\code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), 
-\code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}.
+\code{\link{plot.SMI}} (print.SMI/summary.SMI), \code{\link{RV}} (RV2/RVadj), \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{Rozeboom}}, \code{\link{Coxhead}},
+\code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}, \code{\link{PCAimpute} (PCA based imputation)}.
 }
 \author{
 Kristian Hovde Liland

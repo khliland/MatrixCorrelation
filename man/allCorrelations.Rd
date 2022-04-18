@@ -9,7 +9,8 @@ allCorrelations(
   X2,
   ncomp1,
   ncomp2,
-  methods = c("SMI", "RV", "RV2", "RVadj", "PSI", "r1", "r2", "r3", "r4", "GCD"),
+  methods = c("SMI", "RV", "RV2", "RVadj", "PSI", "r1", "r2", "r3", "r4", "GCD",
+    "Rozeboom", "Coxhead"),
   digits = 3,
   plot = TRUE,
   xlab = "",
@@ -45,12 +46,14 @@ A single value measuring the similarity of two matrices.
 Compare all correlation measures in the package (or a subset)
 }
 \details{
-For each of the three coefficients a single scalar is computed to describe
-the similarity between the two input matrices.
+For each of the coefficients a single scalar is computed to describe
+the similarity between the two input matrices. Note that some methods requires setting
+one or two numbers of components.
 }
 \examples{
 X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 usv <- svd(X1)
+# Remove third principal component from X1 to produce X2
 X2  <- usv$u[,-3] \%*\% diag(usv$d[-3]) \%*\% t(usv$v[,-3])
 
 allCorrelations(X1,X2, ncomp1 = 5,ncomp2 = 5)

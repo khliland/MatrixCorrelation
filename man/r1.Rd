@@ -8,15 +8,41 @@
 \alias{GCD}
 \title{Correlational Measures for Matrices}
 \usage{
-r1(X1, X2, center = TRUE)
+r1(X1, X2, center = TRUE, impute = FALSE)
 
-r2(X1, X2, center = TRUE)
+r2(
+  X1,
+  X2,
+  center = TRUE,
+  impute = FALSE,
+  impute_par = list(max_iter = 20, tol = 10^-5)
+)
 
-r3(X1, X2, center = TRUE)
+r3(
+  X1,
+  X2,
+  center = TRUE,
+  impute = FALSE,
+  impute_par = list(max_iter = 20, tol = 10^-5)
+)
 
-r4(X1, X2, center = TRUE)
+r4(
+  X1,
+  X2,
+  center = TRUE,
+  impute = FALSE,
+  impute_par = list(max_iter = 20, tol = 10^-5)
+)
 
-GCD(X1, X2, ncomp1 = Rank(X1), ncomp2 = Rank(X2), center = TRUE)
+GCD(
+  X1,
+  X2,
+  ncomp1 = min(dim(X1)),
+  ncomp2 = min(dim(X2)),
+  center = TRUE,
+  impute = FALSE,
+  impute_par = list(max_iter = 20, tol = 10^-5)
+)
 }
 \arguments{
 \item{X1}{first \code{matrix} to be compared (\code{data.frames} are also accepted).}
@@ -24,6 +50,10 @@ GCD(X1, X2, ncomp1 = Rank(X1), ncomp2 = Rank(X2), center = TRUE)
 \item{X2}{second \code{matrix} to be compared (\code{data.frames} are also accepted).}
 
 \item{center}{\code{logical} indicating if input matrices should be centered (default = TRUE).}
+
+\item{impute}{\code{logical} indicating if missing values are expected in \code{X1} or \code{X2}.}
+
+\item{impute_par}{named \code{list} of imputation parameters in case of NAs in X1/X2.}
 
 \item{ncomp1}{(GCD) number of subspace components from the first \code{matrix} (default: full subspace).}
 
@@ -57,12 +87,24 @@ r4(X1,X2)
 GCD(X1,X2)
 GCD(X1,X2, 5,5)
 
+# Missing data
+X1[c(1, 50, 400, 900)] <- NA
+X2[c(10, 200, 450, 1200)] <- NA
+r1(X1,X2, impute = TRUE)
+r2(X1,X2, impute = TRUE)
+r3(X1,X2, impute = TRUE)
+r4(X1,X2, impute = TRUE)
+GCD(X1,X2, impute = TRUE)
+GCD(X1,X2, 5,5, impute = TRUE)
+
+
 }
 \references{
 Ramsay, JO; Berg, JT; Styan, GPH; 1984. "Matrix Correlation". Psychometrica 49(3): 403-423.
 }
 \seealso{
-\code{\link{SMI}}, \code{\link{RV}} (RV2/RVadj).
+\code{\link{SMI}}, \code{\link{RV}} (RV2/RVadj), \code{\link{Rozeboom}}, \code{\link{Coxhead}},
+\code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}, \code{\link{PCAimpute} (PCA based imputation)}.
 }
 \author{
 Kristian Hovde Liland

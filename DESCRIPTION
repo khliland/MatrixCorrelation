@@ -2,8 +2,8 @@ Encoding: UTF-8
 Package: MatrixCorrelation
 Type: Package
 Title: Matrix Correlation Coefficients
-Version: 0.9.5
-Date: 2021-02-03
+Version: 0.10.0
+Date: 2022-04-18
 Author: Kristian Hovde Liland
 Maintainer: Kristian Hovde Liland <kristian.liland@nmbu.no>
 Description: Computation and visualization of matrix correlation coefficients.
@@ -11,6 +11,8 @@ Description: Computation and visualization of matrix correlation coefficients.
     measures like r1, r2, r3, r4, Yanai's GCD, RV, RV2, adjusted RV, Rozeboom's
     linear correlation and Coxhead's coefficient are included
     for comparison and flexibility.
+URL: https://github.com/khliland/MatrixCorrelation/
+BugReports: https://github.com/khliland/MatrixCorrelation/issues/
 Depends: R (>= 3.0.1)
 Imports:
     Rcpp,
@@ -20,7 +22,7 @@ Imports:
     RSpectra
 License: GPL-2
 LazyData: TRUE
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 LinkingTo: 
     progress,
     Rcpp,

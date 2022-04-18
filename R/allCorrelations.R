@@ -13,8 +13,9 @@
 #' @param ylab optional y axis label.
 #' @param ... additional arguments for \code{SMI} or \code{plot}.
 #'
-#' @details For each of the three coefficients a single scalar is computed to describe
-#' the similarity between the two input matrices.
+#' @details For each of the coefficients a single scalar is computed to describe
+#' the similarity between the two input matrices. Note that some methods requires setting
+#' one or two numbers of components.
 #'
 #' @return A single value measuring the similarity of two matrices.
 #'
@@ -42,6 +43,7 @@
 #' @examples
 #' X1  <- scale( matrix( rnorm(100*300), 100,300), scale = FALSE)
 #' usv <- svd(X1)
+#' # Remove third principal component from X1 to produce X2
 #' X2  <- usv$u[,-3] %*% diag(usv$d[-3]) %*% t(usv$v[,-3])
 #'
 #' allCorrelations(X1,X2, ncomp1 = 5,ncomp2 = 5)
@@ -49,7 +51,7 @@
 #' @export
 allCorrelations <- function(X1,X2,
                             ncomp1, ncomp2,
-                            methods = c("SMI","RV","RV2","RVadj","PSI","r1","r2","r3","r4","GCD"),
+                            methods = c("SMI","RV","RV2","RVadj","PSI","r1","r2","r3","r4","GCD","Rozeboom","Coxhead"),
                             digits = 3, plot = TRUE, xlab = '', ylab = '', ...){
   # Handle components
   if(missing(ncomp1) && ("SMI" %in% methods || "GCD" %in% methods)){
@@ -75,7 +77,9 @@ allCorrelations <- function(X1,X2,
                          r2    = r2(X1,X2),
                          r3    = r3(X1,X2),
                          r4    = r4(X1,X2),
-                         GCD   = GCD(X1,X2, ncomp1,ncomp2))
+                         GCD   = GCD(X1,X2, ncomp1,ncomp2),
+                         Rozeboom = Rozeboom(X1,X2),
+                         Coxhead = Coxhead(X1,X2))
   }
 
   # Optionally plot

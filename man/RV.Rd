@@ -8,9 +8,9 @@
 \alias{RVadjGhaziri}
 \title{RV coefficients}
 \usage{
-RV(X1, X2, center = TRUE)
+RV(X1, X2, center = TRUE, impute = FALSE)
 
-RV2(X1, X2, center = TRUE)
+RV2(X1, X2, center = TRUE, impute = FALSE)
 
 RVadjMaye(X1, X2, center = TRUE)
 
@@ -24,6 +24,8 @@ RVadj(X1, X2, version = c("Maye", "Ghaziri"), center = TRUE)
 \item{X2}{second \code{matrix} to be compared (\code{data.frames} are also accepted).}
 
 \item{center}{\code{logical} indicating if input matrices should be centered (default = TRUE).}
+
+\item{impute}{\code{logical} indicating if missing values are expected in \code{X1} or \code{X2} (only for RV and RV2).}
 
 \item{version}{Which version of RV adjusted to apply: "Maye" (default) or "Ghaziri"
 RV adjusted is run using the \code{RVadj} function.}
@@ -47,6 +49,12 @@ RV(X1,X2)
 RV2(X1,X2)
 RVadj(X1,X2)
 
+# Missing data
+X1[c(1, 50, 400, 900)] <- NA
+X2[c(10, 200, 450, 1200)] <- NA
+RV(X1,X2, impute = TRUE)
+RV2(X1,X2, impute = TRUE)
+
 }
 \references{
 \itemize{
@@ -61,7 +69,8 @@ RVadj(X1,X2)
 }
 }
 \seealso{
-\code{\link{SMI}}, \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{Rozeboom}}, \code{\link{Coxhead}}.
+\code{\link{SMI}}, \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{Rozeboom}}, \code{\link{Coxhead}},
+\code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}, \code{\link{PCAimpute} (PCA based imputation)}.
 }
 \author{
 Kristian Hovde Liland, Benjamin Leutner (RV2)

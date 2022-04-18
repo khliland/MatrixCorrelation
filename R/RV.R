@@ -6,6 +6,7 @@
 #' @param X1 first \code{matrix} to be compared (\code{data.frames} are also accepted).
 #' @param X2 second \code{matrix} to be compared (\code{data.frames} are also accepted).
 #' @param center \code{logical} indicating if input matrices should be centered (default = TRUE).
+#' @param impute \code{logical} indicating if missing values are expected in \code{X1} or \code{X2} (only for RV and RV2).
 #' @param version Which version of RV adjusted to apply: "Maye" (default) or "Ghaziri"
 #' RV adjusted is run using the \code{RVadj} function.
 #'
@@ -28,7 +29,8 @@
 #'  two datasets; Application to sensory data", Food Quality and Preference 40 (A): 116-124.}
 #' }
 #'
-#' @seealso \code{\link{SMI}}, \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{Rozeboom}}, \code{\link{Coxhead}}.
+#' @seealso \code{\link{SMI}}, \code{\link{r1}} (r2/r3/r4/GCD), \code{\link{Rozeboom}}, \code{\link{Coxhead}},
+#' \code{\link{allCorrelations}} (matrix correlation comparison), \code{\link{PCAcv} (cross-validated PCA)}, \code{\link{PCAimpute} (PCA based imputation)}.
 #'
 #' @examples
 #' X1  <- matrix(rnorm(100*300),100,300)
@@ -39,16 +41,31 @@
 #' RV2(X1,X2)
 #' RVadj(X1,X2)
 #'
+#' # Missing data
+#' X1[c(1, 50, 400, 900)] <- NA
+#' X2[c(10, 200, 450, 1200)] <- NA
+#' RV(X1,X2, impute = TRUE)
+#' RV2(X1,X2, impute = TRUE)
+#'
 #' @export
-RV <- function(X1, X2, center = TRUE){
+RV <- function(X1, X2, center = TRUE, impute = FALSE){
   X1 <- as.matrix(X1)
   X2 <- as.matrix(X2)
-  if(center){
-    X1 <- X1 - rep(colMeans(X1), each = nrow(X1))
-    X2 <- X2 - rep(colMeans(X2), each = nrow(X1))
+  if(impute){ # NA robust centring and inner product
+    if(center){
+      X1 <- X1 - rep(sumNA(X1), each = nrow(X1))
+      X2 <- X2 - rep(sumNA(X2), each = nrow(X1))
+    }
+    AA <- prodNA(X1,t(X1))
+    BB <- prodNA(X2,t(X2))
+  } else {
+    if(center){
+      X1 <- X1 - rep(colMeans(X1), each = nrow(X1))
+      X2 <- X2 - rep(colMeans(X2), each = nrow(X1))
+    }
+    AA <- tcrossprod(X1)
+    BB <- tcrossprod(X2)
   }
-  AA <- tcrossprod(X1)
-  BB <- tcrossprod(X2)
 
   RV <- Trace(AA%*%BB) / (Trace(AA%*%AA)*Trace(BB%*%BB))^0.5
   RV
@@ -56,14 +73,26 @@ RV <- function(X1, X2, center = TRUE){
 
 #' @rdname RV
 #' @export
-RV2 <- function(X1, X2, center = TRUE){
+RV2 <- function(X1, X2, center = TRUE, impute = FALSE){
   X1 <- as.matrix(X1)
   X2 <- as.matrix(X2)
-  if(center){
-    X1 <- X1 - rep(colMeans(X1), each = nrow(X1))
-    X2 <- X2 - rep(colMeans(X2), each = nrow(X1))
+  if(impute){ # NA robust centring and inner product
+    if(center){
+      X1 <- X1 - rep(sumNA(X1), each = nrow(X1))
+      X2 <- X2 - rep(sumNA(X2), each = nrow(X1))
+    }
+    AA <- prodNA(X1,t(X1))
+    BB <- prodNA(X2,t(X2))
+    AA0 <- AA; diag(AA0) <- 0
+    BB0 <- BB; diag(BB0) <- 0
+    return(Trace(AA0%*%BB0) / (sum(AA0^2)^0.5*sum(BB0^2)^0.5))
+  } else {
+    if(center){
+      X1 <- X1 - rep(colMeans(X1), each = nrow(X1))
+      X2 <- X2 - rep(colMeans(X2), each = nrow(X1))
+    }
+    return(RV2cpp(X1, X2))
   }
-  return(RV2cpp(X1, X2))
   # AA  <- tcrossprod(X1)
   # BB  <- tcrossprod(X2)
   # AA0 <- AA; diag(AA0) <- 0
