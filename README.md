@@ -16,8 +16,8 @@ devtools::install_github("khliland/MatrixCorrelation")
     - RV, RV2, RVadj
     - r1, r2, r3, r4
     - Procrustes Similarity Index (PSI)
-    - Coxheard
-    - Roseboom
+    - Coxhead
+    - Rozeboom
 - Principal Component Analysis tools
     - Non-naive cross-validation
     - Imputation using component estimation
