@@ -67,7 +67,7 @@ Matrix similarity as described by Ramsey et al. (1984).
 }
 \details{
 Details can be found in Ramsey's paper:
-\itemize{
+\describe{
  \item{r1:}{ inner product correlation}
  \item{r2:}{ orientation-independent inner product correlation}
  \item{r3:}{ spectra-independent inner product correlations (including orientation)}

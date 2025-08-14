@@ -12,7 +12,7 @@
 #' @param impute_par named \code{list} of imputation parameters in case of NAs in X1/X2.
 #'
 #' @details Details can be found in Ramsey's paper:
-#' \itemize{
+#' \describe{
 #'  \item{r1:}{ inner product correlation}
 #'  \item{r2:}{ orientation-independent inner product correlation}
 #'  \item{r3:}{ spectra-independent inner product correlations (including orientation)}

@@ -57,7 +57,7 @@ RV2(X1,X2, impute = TRUE)
 
 }
 \references{
-\itemize{
+\describe{
  \item{RV:}{ Robert, P.; Escoufier, Y. (1976). "A Unifying Tool for Linear Multivariate
   Statistical Methods: The RV-Coefficient". Applied Statistics 25 (3): 257-265.}
  \item{RV2:}{ Smilde, AK; Kiers, HA; Bijlsma, S; Rubingh, CM; van Erk, MJ (2009). "Matrix correlations

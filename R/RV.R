@@ -18,7 +18,7 @@
 #' @author Kristian Hovde Liland, Benjamin Leutner (RV2)
 #'
 #' @references
-#' \itemize{
+#' \describe{
 #'  \item{RV:}{ Robert, P.; Escoufier, Y. (1976). "A Unifying Tool for Linear Multivariate
 #'   Statistical Methods: The RV-Coefficient". Applied Statistics 25 (3): 257-265.}
 #'  \item{RV2:}{ Smilde, AK; Kiers, HA; Bijlsma, S; Rubingh, CM; van Erk, MJ (2009). "Matrix correlations
@@ -155,8 +155,12 @@ RVadjGhaziri <- function(X1, X2, center = TRUE){
   AA <- tcrossprod(X1)
   BB <- tcrossprod(X2)
 
-  rv  <- Trace(AA %*% BB) / sqrt(Trace(AA %*% AA) * Trace(BB %*% BB))
-  mrvB <- sqrt(Trace(AA)^2 / Trace(AA %*% AA)) * sqrt(Trace(BB)^2 / Trace(BB %*% BB)) / (n-1)
+  #rv  <- Trace(AA %*% BB) / sqrt(Trace(AA %*% AA) * Trace(BB %*% BB))
+  #mrvB <- sqrt(Trace(AA)^2 / Trace(AA %*% AA)) * sqrt(Trace(BB)^2 / Trace(BB %*% BB)) / (n-1)
+  # More efficient calculation
+  denom <- sqrt(Trace(AA %*% AA) * Trace(BB %*% BB))
+  rv   <- Trace(AA %*% BB) / denom
+  mrvB <- Trace(AA) * Trace(BB) / denom / (n-1)
   aRV  <- (rv - mrvB) / (1 - mrvB)
   aRV
 }

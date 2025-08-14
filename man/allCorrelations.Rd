@@ -59,7 +59,7 @@ allCorrelations(X1,X2, ncomp1 = 5,ncomp2 = 5)
 
 }
 \references{
-\itemize{
+\describe{
  \item{SMI:}{ Indahl, U.G.; Næs, T.; Liland, K.H.; 2018. A similarity index for comparing coupled matrices. Journal of Chemometrics; e3049.}
  \item{RV:}{ Robert, P.; Escoufier, Y. (1976). "A Unifying Tool for Linear Multivariate
   Statistical Methods: The RV-Coefficient". Applied Statistics 25 (3): 257-265.}

@@ -11,7 +11,7 @@ GCA <- function(X, tol=10^-12){
     minrank <- min(thisrank, minrank)
     T[[i]] <- udv$u[,1:thisrank,drop=FALSE]/rep(apply(udv$u[,1:thisrank,drop=FALSE],2,sd),each=n)
   }
-  
+
   udv <- svd(do.call(cbind,T))
   C <- udv$u[,1:minrank,drop=FALSE]
   A <- U <- list()
@@ -20,7 +20,7 @@ GCA <- function(X, tol=10^-12){
     # A[[i]] <- tcrossprod(solve(crossprod(X[[i]])), X[[i]]) %*% C
     U[[i]] <- X[[i]] %*% A[[i]]
   }
-  
+
   ii <- 0
   R <- numeric(minrank)
   for(i in 1:(n_block-1)){
@@ -39,12 +39,12 @@ multiRV <- function(X1,X2,X3){
   X1 <- center(unclass(as.matrix(X1)))
   X2 <- center(unclass(as.matrix(X2)))
   X3 <- center(unclass(as.matrix(X3)))
-  
+
   # Vectorized configuration matrices
   S1 <- c(tcrossprod(X1))
   S2 <- c(tcrossprod(X2))
   S3 <- c(tcrossprod(X3))
-  
+
   # Generalized canonical analysis
   g <- GCA(list(as.matrix(S1), as.matrix(S2), as.matrix(S3)))
   return(g$R)
@@ -56,42 +56,41 @@ multiRV2 <- function(X1,X2,X3){
   X1 <- center(unclass(as.matrix(X1)))
   X2 <- center(unclass(as.matrix(X2)))
   X3 <- center(unclass(as.matrix(X3)))
-  
-  # Remove diagonal of a matrix  
+
+  # Remove diagonal of a matrix
   remDiag <- function(x){
     diag(x) <- 0
     x
   }
-  
+
   # Vectorized configuration matrices
   S1 <- c(remDiag(tcrossprod(X1)))
   S2 <- c(remDiag(tcrossprod(X2)))
   S3 <- c(remDiag(tcrossprod(X3)))
-  
+
   # Generalized canonical analysis
   g <- GCA(list(as.matrix(S1), as.matrix(S2), as.matrix(S3)))
   return(g$R)
 }
 
-# Multiblock RV coefficient
-multiSMI <- function(X1,X2,X3, ncomp1,ncomp2,ncomp3){
+# Multiblock SMI coefficient
+mSMI <- function(X, ncomp){
   # Handle inputs
-  X1 <- center(unclass(as.matrix(X1)))
-  X2 <- center(unclass(as.matrix(X2)))
-  X3 <- center(unclass(as.matrix(X3)))
-  
+  nblock <- length(X)
+  for(i in 1:nblock){
+    X[[i]] <- center(unclass(as.matrix(X[[i]])))
+  }
+
   # PCAs for each input matrix
-  usv1 <- svd(X1); X1 <- usv1$u[, 1:ncomp1, drop=FALSE]
-  usv2 <- svd(X2); X2 <- usv2$u[, 1:ncomp2, drop=FALSE]
-  usv3 <- svd(X3); X3 <- usv3$u[, 1:ncomp3, drop=FALSE]
-  
-  # Vectorized configuration matrices
-  S1 <- c(tcrossprod(X1))
-  S2 <- c(tcrossprod(X2))
-  S3 <- c(tcrossprod(X3))
-  
+  S <- list()
+  for(i in 1:nblock){
+    usv <- svd(X[[i]])
+    # Vectorized configuration matrices
+    S[[i]] <- as.matrix(c(tcrossprod(usv$u[, 1:ncomp[i], drop=FALSE])))
+  }
+
   # Generalized canonical analysis
-  g <- GCA(list(as.matrix(S1), as.matrix(S2), as.matrix(S3)))
+  g <- GCA(S)
   return(g$R)
 }
 
@@ -101,3 +100,43 @@ multiRV2(M1,M2,M3)
 multiRV2(M1,M2,M4)
 multiSMI(M1,M2,M3, 2,2,2)
 multiSMI(M1,M2,M4, 2,2,2)
+
+multiSMI <- function(X1,X2,X3, ncomp1,ncomp2,ncomp3){
+  # Handle inputs
+  X1 <- center(unclass(as.matrix(X1)))
+  X2 <- center(unclass(as.matrix(X2)))
+  X3 <- center(unclass(as.matrix(X3)))
+
+  # PCAs for each input matrix
+  usv1 <- svd(X1); X1 <- usv1$u[, 1:ncomp1, drop=FALSE]
+  usv2 <- svd(X2); X2 <- usv2$u[, 1:ncomp2, drop=FALSE]
+  usv3 <- svd(X3); X3 <- usv3$u[, 1:ncomp3, drop=FALSE]
+
+  # Vectorized configuration matrices
+  S1 <- c(tcrossprod(X1))
+  S2 <- c(tcrossprod(X2))
+  S3 <- c(tcrossprod(X3))
+
+  # Generalized canonical analysis
+  g <- GCA(list(as.matrix(S1), as.matrix(S2), as.matrix(S3)))
+  return(g$R)
+}
+
+# Hva gjør GCA?
+a <- matrix(rnorm(20*3),20)
+cor(a[,1],a[,2])
+cancor(a[,1],a[,2])$cor
+GCA(list(a[,1,drop=FALSE], a[,2,drop=FALSE]))$R
+
+
+
+# Hva gjør mSMI?
+M1 <- matrix(rnorm(20*10),20,10)
+M2 <- matrix(rnorm(20*10),20,10)
+SMI(M1,M2, 4,4)
+mSMI(list(M1,M2),c(1,1))
+mSMI(list(M1,M2),c(2,2))
+mSMI(list(M1,M2),c(3,3))
+mSMI(list(M1,M2),c(4,4))
+mSMI(list(M1,M2),c(1,4))
+mSMI(list(M1,M2),c(1,4)) * sqrt(1*4)/min(1,4)

@@ -2,6 +2,10 @@ NEWS file for package MatrixCorrelation
 Collection of matrix correlation measures.
 Kristian Hovde Liland, Tormod Næs and Ulf Geir Indahl, Norway
 
+##### Version 0.10.1
+Date: 28 July 2025
+>> Bugfix to avoid NOTEs from new R versions.
+
 ##### Version 0.10.0
 Date: 18 April 2022
 >> Added support for missing data in r1,r2,r3,r4, RV,RV2, and SMI.
